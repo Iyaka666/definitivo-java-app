@@ -22,7 +22,8 @@ public class GestionarTiposProductos extends javax.swing.JInternalFrame {
     public GestionarTiposProductos(Almacen a) {
         this.store = a;
         initComponents();
-        tbTypeProduct.setModel(new ModelTypeProduct());
+        tbTypeProduct.updateUI();
+        tbTypeProduct.setModel(new ModelTypeProduct());        
     }
 
     /**
@@ -34,8 +35,8 @@ public class GestionarTiposProductos extends javax.swing.JInternalFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        jLabel1 = new javax.swing.JLabel();
-        jLabel2 = new javax.swing.JLabel();
+        jLName = new javax.swing.JLabel();
+        jLIva = new javax.swing.JLabel();
         jBSave = new javax.swing.JButton();
         jTFName = new javax.swing.JTextField();
         jFTFIVA = new javax.swing.JFormattedTextField();
@@ -45,11 +46,11 @@ public class GestionarTiposProductos extends javax.swing.JInternalFrame {
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
 
-        jLabel1.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
-        jLabel1.setText("Nombre:");
+        jLName.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
+        jLName.setText("Nombre:");
 
-        jLabel2.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
-        jLabel2.setText("IVA:");
+        jLIva.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
+        jLIva.setText("IVA:");
 
         jBSave.setText("Guardar");
 
@@ -80,10 +81,10 @@ public class GestionarTiposProductos extends javax.swing.JInternalFrame {
                             .addGroup(layout.createSequentialGroup()
                                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                                     .addGroup(layout.createSequentialGroup()
-                                        .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 69, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                        .addComponent(jLName, javax.swing.GroupLayout.PREFERRED_SIZE, 69, javax.swing.GroupLayout.PREFERRED_SIZE)
                                         .addGap(21, 21, 21))
                                     .addGroup(layout.createSequentialGroup()
-                                        .addComponent(jLabel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                        .addComponent(jLIva, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                                         .addGap(20, 20, 20)))
                                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                                     .addComponent(jTFName, javax.swing.GroupLayout.DEFAULT_SIZE, 270, Short.MAX_VALUE)
@@ -101,11 +102,11 @@ public class GestionarTiposProductos extends javax.swing.JInternalFrame {
             .addGroup(layout.createSequentialGroup()
                 .addGap(19, 19, 19)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel1)
+                    .addComponent(jLName)
                     .addComponent(jTFName, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(35, 35, 35)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel2)
+                    .addComponent(jLIva)
                     .addComponent(jFTFIVA, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 38, Short.MAX_VALUE)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
@@ -124,8 +125,8 @@ public class GestionarTiposProductos extends javax.swing.JInternalFrame {
     private javax.swing.JButton jBCancel;
     private javax.swing.JButton jBSave;
     private javax.swing.JFormattedTextField jFTFIVA;
-    private javax.swing.JLabel jLabel1;
-    private javax.swing.JLabel jLabel2;
+    private javax.swing.JLabel jLIva;
+    private javax.swing.JLabel jLName;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JTextField jTFName;
     private javax.swing.JTable tbTypeProduct;
@@ -134,14 +135,14 @@ public class GestionarTiposProductos extends javax.swing.JInternalFrame {
     public class HandlerFindTypeProduct implements ActionListener{
 
         @Override
-        public void actionPerformed(ActionEvent arg0) {
+        public void actionPerformed(ActionEvent event) {
             
         }
         
     } 
 
         public class ModelTypeProduct extends AbstractTableModel {
-            private String[] columnsNames = {"Nombre","Porcentaje IVA"};
+            private final String[] columnsNames = {"Nombre","Porcentaje IVA"};
             
             @Override
             public int getRowCount() {
@@ -168,7 +169,6 @@ public class GestionarTiposProductos extends javax.swing.JInternalFrame {
             @Override
             public String getColumnName(int column) {
                 return columnsNames[column];
-
             }
 
         }
