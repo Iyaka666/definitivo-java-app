@@ -28,16 +28,22 @@ public class TipoProducto {
     }
 
     public void setNombre(String nombre) {
+        if (this.nombre.equals(nombre)) {
+            return;
+        }
         this.nombre = nombre;
     }
 
     public void setPorcentajeIva(Double porcentajeIva) {
+        if (this.porcentajeIva.equals(porcentajeIva)) {
+            return;
+        }
         this.porcentajeIva = porcentajeIva;
     }
 
     @Override
     public String toString() {
         return nombre;
-    }   
+    }
 
 }
