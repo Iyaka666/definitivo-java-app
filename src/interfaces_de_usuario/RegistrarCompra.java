@@ -1,9 +1,11 @@
-
 package interfaces_de_usuario;
 
 import clases_del_modelo.Almacen;
+import clases_del_modelo.Cliente;
+import exceptions.ObjectNotFoundException;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import javax.swing.JOptionPane;
 import javax.swing.table.AbstractTableModel;
 
 /**
@@ -11,11 +13,16 @@ import javax.swing.table.AbstractTableModel;
  * @author Marlon E. Zambrano Z.
  */
 public class RegistrarCompra extends javax.swing.JInternalFrame {
-
+    
     private Almacen store;
+    private Cliente customerFound;
+    
     public RegistrarCompra(Almacen a) {
         this.store = a;
         initComponents();
+        HandlerFindCustomer hFindCustomer = new HandlerFindCustomer();
+        jBSearch.addActionListener(hFindCustomer);
+        jTFId.addActionListener(hFindCustomer);
     }
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
@@ -27,7 +34,7 @@ public class RegistrarCompra extends javax.swing.JInternalFrame {
         jLNameCustomer = new javax.swing.JLabel();
         jTFId = new javax.swing.JTextField();
         jTFNameCustomer = new javax.swing.JTextField();
-        jButton1 = new javax.swing.JButton();
+        jBSearch = new javax.swing.JButton();
         jPProduct = new javax.swing.JPanel();
         jLCode = new javax.swing.JLabel();
         jLNameProduct = new javax.swing.JLabel();
@@ -35,20 +42,20 @@ public class RegistrarCompra extends javax.swing.JInternalFrame {
         jLQuantity = new javax.swing.JLabel();
         jTFCode = new javax.swing.JTextField();
         jTFNameProduct = new javax.swing.JTextField();
-        jTFCost = new javax.swing.JTextField();
+        jFTFCost = new javax.swing.JFormattedTextField();
         jTFQuantity = new javax.swing.JTextField();
         jBAddInfo = new javax.swing.JButton();
         jScrollPane1 = new javax.swing.JScrollPane();
         jTPresenterInfo = new javax.swing.JTable();
         jBReturn = new javax.swing.JButton();
-        jTFSubtotal = new javax.swing.JTextField();
-        jTFIva = new javax.swing.JTextField();
-        jTFTotal = new javax.swing.JTextField();
         jLSubtotal = new javax.swing.JLabel();
         jLIva = new javax.swing.JLabel();
         jLTotal = new javax.swing.JLabel();
         jBSignInPurchase = new javax.swing.JButton();
         jBCancel = new javax.swing.JButton();
+        jFTFSubtotal = new javax.swing.JFormattedTextField();
+        jFTFIva = new javax.swing.JFormattedTextField();
+        jFTFTotal = new javax.swing.JFormattedTextField();
 
         jLReasonSocial.setText("Razon Social");
 
@@ -60,7 +67,7 @@ public class RegistrarCompra extends javax.swing.JInternalFrame {
 
         jLNameCustomer.setText("Nombre");
 
-        jButton1.setText("...");
+        jBSearch.setText("...");
 
         javax.swing.GroupLayout jPCustomerLayout = new javax.swing.GroupLayout(jPCustomer);
         jPCustomer.setLayout(jPCustomerLayout);
@@ -72,7 +79,7 @@ public class RegistrarCompra extends javax.swing.JInternalFrame {
                     .addComponent(jLId, javax.swing.GroupLayout.DEFAULT_SIZE, 223, Short.MAX_VALUE)
                     .addComponent(jTFId))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 33, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(jBSearch, javax.swing.GroupLayout.PREFERRED_SIZE, 33, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(jPCustomerLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jLNameCustomer, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
@@ -90,7 +97,7 @@ public class RegistrarCompra extends javax.swing.JInternalFrame {
                 .addGroup(jPCustomerLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jTFId, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jTFNameCustomer, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jButton1))
+                    .addComponent(jBSearch))
                 .addContainerGap(26, Short.MAX_VALUE))
         );
 
@@ -118,15 +125,13 @@ public class RegistrarCompra extends javax.swing.JInternalFrame {
                     .addComponent(jLNameProduct, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(jTFNameProduct))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addGroup(jPProductLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(jPProductLayout.createSequentialGroup()
-                        .addComponent(jLCost, javax.swing.GroupLayout.PREFERRED_SIZE, 109, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jLQuantity))
-                    .addGroup(jPProductLayout.createSequentialGroup()
-                        .addComponent(jTFCost, javax.swing.GroupLayout.PREFERRED_SIZE, 103, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jTFQuantity, javax.swing.GroupLayout.PREFERRED_SIZE, 83, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addGroup(jPProductLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addComponent(jFTFCost, javax.swing.GroupLayout.DEFAULT_SIZE, 97, Short.MAX_VALUE)
+                    .addComponent(jLCost, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addGroup(jPProductLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addComponent(jTFQuantity, javax.swing.GroupLayout.DEFAULT_SIZE, 83, Short.MAX_VALUE)
+                    .addComponent(jLQuantity, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addContainerGap())
         );
         jPProductLayout.setVerticalGroup(
@@ -142,8 +147,8 @@ public class RegistrarCompra extends javax.swing.JInternalFrame {
                 .addGroup(jPProductLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jTFCode, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jTFNameProduct, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jTFCost, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jTFQuantity, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(jTFQuantity, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jFTFCost, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addContainerGap(40, Short.MAX_VALUE))
         );
 
@@ -203,15 +208,11 @@ public class RegistrarCompra extends javax.swing.JInternalFrame {
                                     .addComponent(jLIva, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                                     .addComponent(jLSubtotal, javax.swing.GroupLayout.DEFAULT_SIZE, 130, Short.MAX_VALUE)
                                     .addComponent(jLTotal, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addGroup(layout.createSequentialGroup()
-                                        .addGap(18, 18, 18)
-                                        .addComponent(jTFSubtotal, javax.swing.GroupLayout.PREFERRED_SIZE, 150, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                                        .addGap(18, 18, 18)
-                                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                                            .addComponent(jTFIva, javax.swing.GroupLayout.Alignment.TRAILING)
-                                            .addComponent(jTFTotal, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 150, Short.MAX_VALUE)))))
+                                .addGap(18, 18, 18)
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                                    .addComponent(jFTFSubtotal)
+                                    .addComponent(jFTFIva)
+                                    .addComponent(jFTFTotal, javax.swing.GroupLayout.DEFAULT_SIZE, 150, Short.MAX_VALUE)))
                             .addGroup(layout.createSequentialGroup()
                                 .addComponent(jBSignInPurchase, javax.swing.GroupLayout.PREFERRED_SIZE, 451, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 18, Short.MAX_VALUE)
@@ -236,16 +237,16 @@ public class RegistrarCompra extends javax.swing.JInternalFrame {
                 .addGap(18, 18, 18)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jBReturn)
-                    .addComponent(jTFSubtotal, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jLSubtotal))
+                    .addComponent(jLSubtotal)
+                    .addComponent(jFTFSubtotal, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(18, 18, 18)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jTFIva, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jLIva))
+                    .addComponent(jLIva)
+                    .addComponent(jFTFIva, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(18, 18, 18)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jTFTotal, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jLTotal))
+                    .addComponent(jLTotal)
+                    .addComponent(jFTFTotal, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(18, 18, 18)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jBSignInPurchase)
@@ -255,14 +256,18 @@ public class RegistrarCompra extends javax.swing.JInternalFrame {
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
-   
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton jBAddInfo;
     private javax.swing.JButton jBCancel;
     private javax.swing.JButton jBReturn;
+    private javax.swing.JButton jBSearch;
     private javax.swing.JButton jBSignInPurchase;
-    private javax.swing.JButton jButton1;
+    private javax.swing.JFormattedTextField jFTFCost;
+    private javax.swing.JFormattedTextField jFTFIva;
+    private javax.swing.JFormattedTextField jFTFSubtotal;
+    private javax.swing.JFormattedTextField jFTFTotal;
     private javax.swing.JLabel jLCode;
     private javax.swing.JLabel jLCost;
     private javax.swing.JLabel jLId;
@@ -278,25 +283,39 @@ public class RegistrarCompra extends javax.swing.JInternalFrame {
     private javax.swing.JPanel jPProduct;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JTextField jTFCode;
-    private javax.swing.JTextField jTFCost;
     private javax.swing.JTextField jTFId;
-    private javax.swing.JTextField jTFIva;
     private javax.swing.JTextField jTFNameCustomer;
     private javax.swing.JTextField jTFNameProduct;
     private javax.swing.JTextField jTFQuantity;
-    private javax.swing.JTextField jTFSubtotal;
-    private javax.swing.JTextField jTFTotal;
     private javax.swing.JTable jTPresenterInfo;
     // End of variables declaration//GEN-END:variables
 
-    public class HandlerFindCustomer implements ActionListener{
-
+    public class HandlerFindCustomer implements ActionListener {
+        
         @Override
         public void actionPerformed(ActionEvent e) {
-            
+            try {
+                long id = Long.parseLong(jTFId.getText());
+                if (customerFound == null) {
+                    customerFound = store.findCustomerByID(id);
+                    jTFNameCustomer.setText(customerFound.getNombres());
+                } else {
+                    customerFound.setNombres(customerFound.getNombres());
+                    JOptionPane.showMessageDialog(RegistrarCompra.this,
+                            "El nombre del cliente con identificacion " + id
+                            + "fue modificado exitosamente");
+                }
+            } catch (ObjectNotFoundException ex) {
+                JOptionPane.showMessageDialog(RegistrarCompra.this,
+                        "El cliente con identificacion" + jTFId.getText()
+                        + "no se encuentra registrado");
+            } catch (NumberFormatException ex) {
+                JOptionPane.showMessageDialog(RegistrarCompra.this, "El campo debe contener numeros");
+            }
         }
-    
     }
+
+
     /*
     public class ModelTb extends AbstractTableModel{
         private final String[] headersNames = {"Codigo","Nombre","Vr. Unit.","Cant","Costo"};
@@ -317,5 +336,4 @@ public class RegistrarCompra extends javax.swing.JInternalFrame {
         }
     
     }*/
-
 }
