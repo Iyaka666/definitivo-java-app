@@ -1,5 +1,8 @@
 package clases_del_modelo;
 
+import exceptions.OutRangeGivingDoubleException;
+import exceptions.StringVoidAtribException;
+
 /*
  * To change this license header, choose License Headers in Project Properties.
  * To change this template file, choose Tools | Templates
@@ -14,7 +17,16 @@ public class TipoProducto {
     private String nombre;
     private Double porcentajeIva;
 
-    public TipoProducto(String nombre, Double porcentajeIva) {
+    public TipoProducto(String nombre, Double porcentajeIva) throws Exception {
+        
+        if("".equals(nombre.trim()) ){
+            throw new StringVoidAtribException("La cadena esta vacia");
+        }
+        
+        if(!((porcentajeIva >= 0)&&(porcentajeIva <= 1))){
+            throw new OutRangeGivingDoubleException("El valor no esta dentro del rango");
+        }
+        
         this.nombre = nombre;
         this.porcentajeIva = porcentajeIva;
     }
