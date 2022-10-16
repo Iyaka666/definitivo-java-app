@@ -4,7 +4,6 @@ import exceptions.ThisIsRegisteredException;
 import exceptions.ObjectNotFoundException;
 import java.util.LinkedList;
 import java.util.List;
-import java.util.Objects;
 
 /**
  *
@@ -73,8 +72,12 @@ public class Almacen {
                 return p;
             }
         }
-        throw new ObjectNotFoundException("El producto con código " + code
+        throw new ObjectNotFoundException("El producto con cï¿½digo " + code
                 + "no se encuentra registrado");
+    }
+
+    public List<Producto> getMisProductos() {
+        return misProductos;
     }
 
     public void removeProducto(Producto p) {
