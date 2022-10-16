@@ -1,6 +1,6 @@
 package clases_del_modelo;
 
-import exceptions.OutRangeGivingDoubleException;
+import exceptions.OutRangeGivenDoubleException;
 import exceptions.StringVoidAtribException;
 
 /*
@@ -24,7 +24,7 @@ public class TipoProducto {
         }
         
         if(!((porcentajeIva >= 0)&&(porcentajeIva <= 1))){
-            throw new OutRangeGivingDoubleException("El valor no esta dentro del rango");
+            throw new OutRangeGivenDoubleException("El valor no esta dentro del rango");
         }
         
         this.nombre = nombre;
