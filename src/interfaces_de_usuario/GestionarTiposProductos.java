@@ -1,29 +1,29 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package interfaces_de_usuario;
 
 import clases_del_modelo.Almacen;
 import clases_del_modelo.TipoProducto;
+import exceptions.OutRangeGivenDoubleException;
+import exceptions.StringVoidAtribException;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+import javax.swing.JOptionPane;
 import javax.swing.table.AbstractTableModel;
 
-/**
- *
- * @author carbonera
- */
+//@author Marlon
 public class GestionarTiposProductos extends javax.swing.JInternalFrame {
 
     private Almacen store;
+    private TipoProducto typeProductRegistered;
 
     public GestionarTiposProductos(Almacen a) {
         this.store = a;
         initComponents();
+        jBSave.addActionListener(new HandlerSaveTypeProduct());
+        jBCancel.addActionListener(new HandlerDeleteField());
+        tbTypeProduct.setModel(new ModelTypeProduct());
         tbTypeProduct.updateUI();
-        tbTypeProduct.setModel(new ModelTypeProduct());        
     }
 
     /**
@@ -131,45 +131,75 @@ public class GestionarTiposProductos extends javax.swing.JInternalFrame {
     private javax.swing.JTextField jTFName;
     private javax.swing.JTable tbTypeProduct;
     // End of variables declaration//GEN-END:variables
+    private void makeDeleteFieldsNoTable(){
+        jTFName.setText("");
+        jFTFIVA.setText("");
+    }
+    
+    public class HandlerDeleteField implements ActionListener{
 
-    public class HandlerFindTypeProduct implements ActionListener{
+        @Override
+        public void actionPerformed(ActionEvent e) {
+            makeDeleteFieldsNoTable();
+        }
+        
+    }
+    
+    public class HandlerSaveTypeProduct implements ActionListener {
 
         @Override
         public void actionPerformed(ActionEvent event) {
-            
-        }
-        
-    } 
-
-        public class ModelTypeProduct extends AbstractTableModel {
-            private final String[] columnsNames = {"Nombre","Porcentaje IVA"};
-            
-            @Override
-            public int getRowCount() {
-                return store.getTiposDeProductos().size();
-            }
-
-            @Override
-            public int getColumnCount() {
-                return columnsNames.length;
-            }
-
-            @Override
-            public Object getValueAt(int rowIndex, int columnIndex) {
-                TipoProducto tP = store.getTiposDeProductos().get(rowIndex);
-                switch (columnIndex) {
-                    case 0:
-                        return tP.getNombre();
-                    case 1:
-                        return tP.getPorcentajeIva();
+            try {
+                if (typeProductRegistered == null) {
+                    typeProductRegistered = new TipoProducto(jTFName.getText(), (Double) jFTFIVA.getValue());
+                } else {
+                    typeProductRegistered.setNombre(jTFName.getText());
+                    typeProductRegistered.setPorcentajeIva((Double) jFTFIVA.getValue());
+                    JOptionPane.showMessageDialog(GestionarTiposProductos.this, "La información se ha modificado");
+                    makeDeleteFieldsNoTable();
+                    jTFName.requestFocus();
                 }
-                return "";
+            } catch (StringVoidAtribException ex) {
+                JOptionPane.showMessageDialog(GestionarTiposProductos.this, "El nombre no puede estar vacio");
+            } catch (OutRangeGivenDoubleException ex) {
+                JOptionPane.showMessageDialog(GestionarTiposProductos.this, "El porcentaje debe estar entre 0% y 100%");
+            } catch (Exception ex) {
+                Logger.getLogger(GestionarTiposProductos.class.getName()).log(Level.SEVERE, null, ex);
             }
-            
-            @Override
-            public String getColumnName(int column) {
-                return columnsNames[column];
-            }
-
         }
+
     }
+
+    public class ModelTypeProduct extends AbstractTableModel {
+
+        private final String[] columnsNames = {"Nombre", "Porcentaje IVA"};
+
+        @Override
+        public int getRowCount() {
+            return store.getTiposDeProductos().size();
+        }
+
+        @Override
+        public int getColumnCount() {
+            return columnsNames.length;
+        }
+
+        @Override
+        public Object getValueAt(int rowIndex, int columnIndex) {
+            TipoProducto tP = store.getTiposDeProductos().get(rowIndex);
+            switch (columnIndex) {
+                case 0:
+                    return tP.getNombre();
+                case 1:
+                    return tP.getPorcentajeIva();
+            }
+            return "";
+        }
+
+        @Override
+        public String getColumnName(int column) {
+            return columnsNames[column];
+        }
+
+    }
+}
