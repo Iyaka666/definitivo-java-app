@@ -9,6 +9,8 @@ import clases_del_modelo.TipoProducto;
 import exceptions.ObjectNotFoundException;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.swing.JOptionPane;
 import javax.swing.table.AbstractTableModel;
 
@@ -21,7 +23,6 @@ public class RegistrarCompra extends javax.swing.JInternalFrame {
     private Almacen store;
     private Compra purchase;
     private Cliente customerFound;
-    private DetalleCompra detailPurchase;
 
     public RegistrarCompra(Almacen a) {
         this.store = a;
@@ -29,6 +30,7 @@ public class RegistrarCompra extends javax.swing.JInternalFrame {
         HandlerFindCustomer hFindCustomer = new HandlerFindCustomer();
         jBSearch.addActionListener(hFindCustomer);
         jTFId.addActionListener(hFindCustomer);
+        jBAddInfo.addActionListener(new HandlerAddDetailPurchase());
     }
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
@@ -302,15 +304,8 @@ public class RegistrarCompra extends javax.swing.JInternalFrame {
         public void actionPerformed(ActionEvent e) {
             try {
                 long id = Long.parseLong(jTFId.getText());
-                if (customerFound == null) {
-                    customerFound = store.findCustomerByID(id);
-                    jTFNameCustomer.setText(customerFound.getNombres());
-                } else {
-                    customerFound.setNombres(customerFound.getNombres());
-                    JOptionPane.showMessageDialog(RegistrarCompra.this,
-                            "El nombre del cliente con identificacion " + id
-                            + "fue modificado exitosamente");
-                }
+                customerFound = store.findCustomerByID(id);
+                jTFNameCustomer.setText(customerFound.getNombres());                
             } catch (ObjectNotFoundException ex) {
                 JOptionPane.showMessageDialog(RegistrarCompra.this,
                         "El cliente con identificacion" + jTFId.getText()
@@ -319,6 +314,26 @@ public class RegistrarCompra extends javax.swing.JInternalFrame {
                 JOptionPane.showMessageDialog(RegistrarCompra.this, "El campo debe contener numeros");
             }
         }
+    }
+    
+    public class HandlerAddDetailPurchase implements ActionListener{
+
+        @Override
+        public void actionPerformed(ActionEvent e) {
+            try {
+                Producto product = store.findProductByCode( Long.parseLong( jTFCode.getText() ) );
+                purchase.addElementToDetallesCompra(new DetalleCompra(
+                        Byte.parseByte(jTFQuantity.getText()), 
+                        product));
+            } catch (ObjectNotFoundException ex) {
+                JOptionPane.showMessageDialog(RegistrarCompra.this, "El producto no esta registrado");
+            } catch (NumberFormatException ex){
+                JOptionPane.showMessageDialog(RegistrarCompra.this, "El codigo debe contener numeros");
+            } catch (Exception ex) {
+                Logger.getLogger(RegistrarCompra.class.getName()).log(Level.SEVERE, null, ex);
+            }
+        }
+    
     }
 
     public class ModelTb extends AbstractTableModel {
