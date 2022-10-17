@@ -4,25 +4,39 @@
   <NonVisualComponents>
     <Menu class="javax.swing.JMenuBar" name="jMB1">
       <SubComponents>
-        <Menu class="javax.swing.JMenu" name="jMPurchase">
+        <Menu class="javax.swing.JMenu" name="jMMain">
           <Properties>
-            <Property name="text" type="java.lang.String" value="Compras"/>
+            <Property name="text" type="java.lang.String" value="Principal"/>
           </Properties>
-        </Menu>
-        <Menu class="javax.swing.JMenu" name="jMCustomer">
-          <Properties>
-            <Property name="text" type="java.lang.String" value="Clientes"/>
-          </Properties>
-        </Menu>
-        <Menu class="javax.swing.JMenu" name="jMProduct">
-          <Properties>
-            <Property name="text" type="java.lang.String" value="Productos"/>
-          </Properties>
-        </Menu>
-        <Menu class="javax.swing.JMenu" name="jMTypeProduct">
-          <Properties>
-            <Property name="text" type="java.lang.String" value="Tipos de productos"/>
-          </Properties>
+          <SubComponents>
+            <MenuItem class="javax.swing.JMenuItem" name="jMIPurchases">
+              <Properties>
+                <Property name="text" type="java.lang.String" value="Compras"/>
+              </Properties>
+            </MenuItem>
+            <MenuItem class="javax.swing.JMenuItem" name="jMIProducts">
+              <Properties>
+                <Property name="text" type="java.lang.String" value="Productos"/>
+              </Properties>
+            </MenuItem>
+            <MenuItem class="javax.swing.JMenuItem" name="jMITypeProducts">
+              <Properties>
+                <Property name="text" type="java.lang.String" value="Tipos de Productos"/>
+              </Properties>
+            </MenuItem>
+            <MenuItem class="javax.swing.JMenuItem" name="jMICustomer">
+              <Properties>
+                <Property name="text" type="java.lang.String" value="Clientes"/>
+              </Properties>
+            </MenuItem>
+            <MenuItem class="javax.swing.JPopupMenu$Separator" name="jSeparator1">
+            </MenuItem>
+            <MenuItem class="javax.swing.JMenuItem" name="jMIExit">
+              <Properties>
+                <Property name="text" type="java.lang.String" value="Salir"/>
+              </Properties>
+            </MenuItem>
+          </SubComponents>
         </Menu>
       </SubComponents>
     </Menu>
