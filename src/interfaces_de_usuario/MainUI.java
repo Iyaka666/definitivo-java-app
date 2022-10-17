@@ -1,44 +1,48 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
+
 package interfaces_de_usuario;
 
 import clases_del_modelo.Almacen;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
-/**
- *
- * @author carbonera
- */
+//@author Marlon E. Zambrano Z.
 public class MainUI extends javax.swing.JFrame {
 
     private Almacen store;
     public MainUI( Almacen thisStore ) {
         this.store = thisStore;
         initComponents();
-        jMApplication.addActionListener(new HandlerShowCustomerUI());
+        jMCustomer.addActionListener(new HandlerShowCustomersUI());
+        jMProduct.addActionListener(new HandlerShowProductsUI());
+        jMTypeProduct.addActionListener(new HandlerShowTypeProductsUI());
+        jMPurchase.addActionListener(new HandlerShowSignInPurchaseUI());
     }
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
         jDesktopP = new javax.swing.JDesktopPane();
         jMB1 = new javax.swing.JMenuBar();
-        jMApplication = new javax.swing.JMenu();
-        jMenu2 = new javax.swing.JMenu();
+        jMPurchase = new javax.swing.JMenu();
+        jMCustomer = new javax.swing.JMenu();
+        jMProduct = new javax.swing.JMenu();
+        jMTypeProduct = new javax.swing.JMenu();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
         jDesktopP.setBackground(new java.awt.Color(255, 255, 255));
         getContentPane().add(jDesktopP, java.awt.BorderLayout.CENTER);
 
-        jMApplication.setText("Aplicaciones");
-        jMB1.add(jMApplication);
+        jMPurchase.setText("Compras");
+        jMB1.add(jMPurchase);
 
-        jMenu2.setText("Edit");
-        jMB1.add(jMenu2);
+        jMCustomer.setText("Clientes");
+        jMB1.add(jMCustomer);
+
+        jMProduct.setText("Productos");
+        jMB1.add(jMProduct);
+
+        jMTypeProduct.setText("Tipos de productos");
+        jMB1.add(jMTypeProduct);
 
         setJMenuBar(jMB1);
 
@@ -47,19 +51,61 @@ public class MainUI extends javax.swing.JFrame {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JDesktopPane jDesktopP;
-    private javax.swing.JMenu jMApplication;
     private javax.swing.JMenuBar jMB1;
-    private javax.swing.JMenu jMenu2;
+    private javax.swing.JMenu jMCustomer;
+    private javax.swing.JMenu jMProduct;
+    private javax.swing.JMenu jMPurchase;
+    private javax.swing.JMenu jMTypeProduct;
     // End of variables declaration//GEN-END:variables
-
-    public class HandlerShowCustomerUI implements ActionListener{
-
+        
+    public class HandlerShowCustomersUI implements ActionListener{
+        private GestionarClientes customerUI;
         @Override
         public void actionPerformed(ActionEvent e) {
-            GestionarClientes customerUI = new GestionarClientes(store);
-            jDesktopP.add(customerUI);
-            customerUI.setVisible(true);
+            if(customerUI == null){
+                customerUI = new GestionarClientes(store);
+                jDesktopP.add(customerUI);            
+            }
+            customerUI.setVisible(true);            
+        }
             
+    }
+    
+    public class HandlerShowProductsUI implements ActionListener{
+        private GestionarProductos productUI;
+        @Override
+        public void actionPerformed(ActionEvent e) {
+            if(productUI == null){
+                productUI = new GestionarProductos(store);
+                jDesktopP.add(productUI);            
+            }
+            productUI.setVisible(true);            
+        }
+            
+    }
+    
+    public class HandlerShowTypeProductsUI implements ActionListener{
+        private GestionarTiposProductos typeProductsUI;
+        @Override
+        public void actionPerformed(ActionEvent e) {
+            if(typeProductsUI == null){
+                typeProductsUI = new GestionarTiposProductos(store);
+                jDesktopP.add(typeProductsUI);            
+            }
+            typeProductsUI.setVisible(true);            
+        }
+            
+    }
+    
+    public class HandlerShowSignInPurchaseUI implements ActionListener{
+        private RegistrarCompra signInPurchasesUI;
+        @Override
+        public void actionPerformed(ActionEvent e) {
+            if(signInPurchasesUI == null){
+                signInPurchasesUI = new RegistrarCompra(store);
+                jDesktopP.add(signInPurchasesUI);            
+            }
+            signInPurchasesUI.setVisible(true);            
         }
             
     }
