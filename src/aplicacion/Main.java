@@ -24,7 +24,6 @@ public class Main {
     public static void main(String[] args) {
 
         Almacen newStore = new Almacen();
-        boolean flag = false;
         try {
             //Valores de prueba
             Cliente cliente1 = new Cliente(333533336L, "a@b.com", 100302100L,
