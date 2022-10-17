@@ -2,6 +2,10 @@ package interfaces_de_usuario;
 
 import clases_del_modelo.Almacen;
 import clases_del_modelo.Cliente;
+import clases_del_modelo.Compra;
+import clases_del_modelo.DetalleCompra;
+import clases_del_modelo.Producto;
+import clases_del_modelo.TipoProducto;
 import exceptions.ObjectNotFoundException;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -13,10 +17,12 @@ import javax.swing.table.AbstractTableModel;
  * @author Marlon E. Zambrano Z.
  */
 public class RegistrarCompra extends javax.swing.JInternalFrame {
-    
+
     private Almacen store;
+    private Compra purchase;
     private Cliente customerFound;
-    
+    private DetalleCompra detailPurchase;
+
     public RegistrarCompra(Almacen a) {
         this.store = a;
         initComponents();
@@ -291,7 +297,7 @@ public class RegistrarCompra extends javax.swing.JInternalFrame {
     // End of variables declaration//GEN-END:variables
 
     public class HandlerFindCustomer implements ActionListener {
-        
+
         @Override
         public void actionPerformed(ActionEvent e) {
             try {
@@ -315,14 +321,13 @@ public class RegistrarCompra extends javax.swing.JInternalFrame {
         }
     }
 
+    public class ModelTb extends AbstractTableModel {
 
-    /*
-    public class ModelTb extends AbstractTableModel{
-        private final String[] headersNames = {"Codigo","Nombre","Vr. Unit.","Cant","Costo"};
-        
+        private final String[] headersNames = {"Codigo", "Nombre", "Vr. Unit.", "Cant", "Costo"};
+
         @Override
         public int getRowCount() {
-            return store.getMisProductos().size();
+            return purchase.getDetallesDeCompra().size();
         }
 
         @Override
@@ -332,8 +337,21 @@ public class RegistrarCompra extends javax.swing.JInternalFrame {
 
         @Override
         public Object getValueAt(int rowIndex, int columnIndex) {
-            
+            DetalleCompra dC = purchase.getDetallesDeCompra().get(rowIndex);
+            switch (columnIndex) {
+                case 0:
+                    return dC.getEsteProducto().getCodigo();
+                case 1:
+                    return dC.getEsteProducto().getNombre();
+                case 2:
+                    return dC.getEsteProducto().getCosto();
+                case 3:
+                    return dC.getCantidad();
+                case 4:
+                    return dC.getCostoCompra();
+            }
+            return "";
         }
-    
-    }*/
+
+    }
 }
