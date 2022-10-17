@@ -22,8 +22,8 @@ public class GestionarTiposProductos extends javax.swing.JInternalFrame {
         initComponents();
         jBSave.addActionListener(new HandlerSaveTypeProduct());
         jBCancel.addActionListener(new HandlerDeleteField());
-        tbTypeProduct.setModel(new ModelTypeProduct());
-        tbTypeProduct.updateUI();
+        jTTypeProduct.setModel(new ModelTypeProduct());
+        jTTypeProduct.updateUI();
     }
 
     /**
@@ -42,7 +42,7 @@ public class GestionarTiposProductos extends javax.swing.JInternalFrame {
         jFTFIVA = new javax.swing.JFormattedTextField();
         jBCancel = new javax.swing.JButton();
         jScrollPane1 = new javax.swing.JScrollPane();
-        tbTypeProduct = new javax.swing.JTable();
+        jTTypeProduct = new javax.swing.JTable();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
 
@@ -56,7 +56,7 @@ public class GestionarTiposProductos extends javax.swing.JInternalFrame {
 
         jBCancel.setText("Cancelar");
 
-        tbTypeProduct.setModel(new javax.swing.table.DefaultTableModel(
+        jTTypeProduct.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
                 {null, null, null, null},
                 {null, null, null, null},
@@ -67,7 +67,7 @@ public class GestionarTiposProductos extends javax.swing.JInternalFrame {
                 "Title 1", "Title 2", "Title 3", "Title 4"
             }
         ));
-        jScrollPane1.setViewportView(tbTypeProduct);
+        jScrollPane1.setViewportView(jTTypeProduct);
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -129,7 +129,7 @@ public class GestionarTiposProductos extends javax.swing.JInternalFrame {
     private javax.swing.JLabel jLName;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JTextField jTFName;
-    private javax.swing.JTable tbTypeProduct;
+    private javax.swing.JTable jTTypeProduct;
     // End of variables declaration//GEN-END:variables
     private void makeDeleteFieldsNoTable(){
         jTFName.setText("");
@@ -152,10 +152,12 @@ public class GestionarTiposProductos extends javax.swing.JInternalFrame {
             try {
                 if (typeProductRegistered == null) {
                     typeProductRegistered = new TipoProducto(jTFName.getText(), (Double) jFTFIVA.getValue());
+                    jTTypeProduct.updateUI();
                 } else {
                     typeProductRegistered.setNombre(jTFName.getText());
                     typeProductRegistered.setPorcentajeIva((Double) jFTFIVA.getValue());
                     JOptionPane.showMessageDialog(GestionarTiposProductos.this, "La información se ha modificado");
+                    jTTypeProduct.updateUI();
                     makeDeleteFieldsNoTable();
                     jTFName.requestFocus();
                 }
