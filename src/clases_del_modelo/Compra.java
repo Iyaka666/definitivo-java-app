@@ -35,21 +35,16 @@ public class Compra {
         return esteCliente;
     }
 
+    public List<DetalleCompra> getDetallesDeCompra() {
+        return detallesDeCompra;
+    }
+
     public void addElementToDetallesCompra(DetalleCompra elemento) {
         detallesDeCompra.add(elemento);
     }
 
     public void removeElementToDetallesCompra(DetalleCompra elemento) {
         detallesDeCompra.remove(elemento);
-    }
-
-    public DetalleCompra findDetalleCompra(DetalleCompra dC) {
-        for (DetalleCompra otherDC : this.detallesDeCompra) {
-            if (otherDC.getEsteProducto().getNombre() == dC.getEsteProducto().getNombre()) {
-                return otherDC;
-            }
-        }
-        return null;
-    }
+    }   
 
 }
