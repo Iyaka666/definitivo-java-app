@@ -11,7 +11,7 @@ public class DetalleCompra {
     private Double valorIva;
     private Producto esteProducto;
 
-    public DetalleCompra(byte cantidad, Double costoCompra, Double valorIva, Producto esteProducto) {
+    public DetalleCompra(byte cantidad, Producto esteProducto) {
         this.esteProducto = esteProducto;
         this.cantidad = cantidad;
         this.valorIva = this.esteProducto.getTipoProducto().getPorcentajeIva();        
