@@ -15,7 +15,7 @@ public class DetalleCompra {
         this.esteProducto = esteProducto;
         this.cantidad = cantidad;
         this.valorIva = this.esteProducto.getTipoProducto().getPorcentajeIva();        
-        this.costoCompra = this.esteProducto.getCosto() * this.valorIva;
+        this.costoCompra = this.esteProducto.getCosto() + (this.esteProducto.getCosto() * this.valorIva);
     }
 
     public byte getCantidad() {
