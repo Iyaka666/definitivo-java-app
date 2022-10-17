@@ -7,26 +7,26 @@ package clases_del_modelo;
 public class DetalleCompra {
 
     private byte cantidad;
-    private int costoCompra;
-    private float valorIva;
+    private Double costoCompra;
+    private Double valorIva;
     private Producto esteProducto;
 
-    public DetalleCompra(byte cantidad, int costoCompra, float valorIva, Producto esteProducto) {
-        this.cantidad = cantidad;
-        this.costoCompra = costoCompra;
-        this.valorIva = valorIva;
+    public DetalleCompra(byte cantidad, Double costoCompra, Double valorIva, Producto esteProducto) {
         this.esteProducto = esteProducto;
+        this.cantidad = cantidad;
+        this.valorIva = this.esteProducto.getTipoProducto().getPorcentajeIva();        
+        this.costoCompra = this.esteProducto.getCosto() * this.valorIva;
     }
 
     public byte getCantidad() {
         return cantidad;
     }
 
-    public int getCostoCompra() {
+    public Double getCostoCompra() {
         return costoCompra;
     }
 
-    public float getValorIva() {
+    public Double getValorIva() {
         return valorIva;
     }
 
