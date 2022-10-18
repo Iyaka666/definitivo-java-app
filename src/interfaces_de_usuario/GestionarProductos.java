@@ -258,8 +258,7 @@ public class GestionarProductos extends javax.swing.JInternalFrame {
                     productRegistered.setEsteTipoProducto((TipoProducto) jCBTipoDeProducto.getSelectedItem());
                 }
             } catch (StringVoidAtribException ex) {
-                JOptionPane.showMessageDialog(GestionarProductos.this,
-                        "El campo de texto no puede estar vacio");
+                JOptionPane.showMessageDialog(GestionarProductos.this, ex.getMessage());
             } catch (Exception ex) {
                 Logger.getLogger(GestionarProductos.class.getName()).log(Level.SEVERE, null, ex);
             }
