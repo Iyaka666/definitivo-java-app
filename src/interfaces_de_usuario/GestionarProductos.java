@@ -183,12 +183,6 @@ public class GestionarProductos extends javax.swing.JInternalFrame {
     // End of variables declaration//GEN-END:variables
     private void addAndCreateProductTypes() {
         try {
-            aStack.addNewTipoProducto( new TipoProducto("Bebidas azucaradas", 0.05) );
-
-            aStack.addNewTipoProducto( new TipoProducto("Canasta familiar", 0.0) );
-
-            aStack.addNewTipoProducto(new TipoProducto("No esenciales", 0.19));
-
             //agrega elementos al comboBox
             for (TipoProducto tP : this.aStack.getTiposDeProductos()) {
                 jCBTipoDeProducto.addItem(tP);
@@ -244,16 +238,16 @@ public class GestionarProductos extends javax.swing.JInternalFrame {
         @Override
         public void actionPerformed(ActionEvent e) {
             try {
-                if (productRegistered == null) {
-                    productRegistered = new Producto(Long.parseLong(jTFCodigo.getText()),
-                            jTFNombre.getText(),
-                            Double.parseDouble((String.valueOf(jFTFCosto.getValue()).trim())),
-                            (TipoProducto) jCBTipoDeProducto.getSelectedItem());
+                long code = Long.parseLong(jTFCodigo.getText());
+                if (productRegistered == null) {                    
+                    String name = jTFNombre.getText();
+                    Double cost = Double.parseDouble((String.valueOf(jFTFCosto.getValue()).trim())); 
+                    TipoProducto typeProduct = (TipoProducto) jCBTipoDeProducto.getSelectedItem(); 
+                    productRegistered = new Producto(code, name, cost, typeProduct);
                     aStack.addNewProducto(productRegistered);
                 } else {
-                    long code = Long.parseLong(jTFCodigo.getText());
                     productRegistered = aStack.findProductByCode(code);
-                    productRegistered.setNombre(jTFNombre.getText());
+                    productRegistered.setNombre( jTFNombre.getText() );
                     productRegistered.setCosto(Double.parseDouble(jFTFCosto.getText()));
                     productRegistered.setEsteTipoProducto((TipoProducto) jCBTipoDeProducto.getSelectedItem());
                 }
