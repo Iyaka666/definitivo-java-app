@@ -10,7 +10,7 @@ package exceptions;
  */
 public class StringVoidAtribException extends Exception {
 
-    public StringVoidAtribException(String el_nombre_no_puede_ser_una_cadena_de_text) {
+    public StringVoidAtribException(String string) {
         super();
     }
 
