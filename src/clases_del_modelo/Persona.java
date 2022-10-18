@@ -20,8 +20,8 @@ public class Persona {
             throw new IdInvalidException("El numero debe identificacion debe "
                     + "contener entre 7 y 10 caracteres");
         }
-        this.nombres = this.nombres.trim();
-        this.apellidos = this.apellidos.trim();
+        this.nombres = nombres.trim();
+        this.apellidos = apellidos.trim();
         if (this.nombres.equals("")) {
             throw new StringVoidAtribException(
                     "Los nombres no pueden ser una cadena de texto vacio");
