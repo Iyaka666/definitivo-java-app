@@ -5,7 +5,6 @@ import clases_del_modelo.Cliente;
 import clases_del_modelo.Compra;
 import clases_del_modelo.DetalleCompra;
 import clases_del_modelo.Producto;
-import clases_del_modelo.TipoProducto;
 import exceptions.ObjectNotFoundException;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -23,6 +22,8 @@ public class RegistrarCompra extends javax.swing.JInternalFrame {
     private Almacen store;
     private Compra purchase;
     private Cliente customerFound;
+    private Producto productFound;
+    private DetalleCompra detailPurchase;
 
     public RegistrarCompra(Almacen a) {
         this.store = a;
@@ -30,7 +31,10 @@ public class RegistrarCompra extends javax.swing.JInternalFrame {
         HandlerFindCustomer hFindCustomer = new HandlerFindCustomer();
         jBSearch.addActionListener(hFindCustomer);
         jTFId.addActionListener(hFindCustomer);
-        jBAddInfo.addActionListener(new HandlerAddDetailPurchase());
+        jTFCode.addActionListener(new HandlerFindProduct());
+        jBAddDetailPurchase.addActionListener(new HandlerAddDetailPurchase());
+        jBReturn.addActionListener(new HandlerReturnProduct());
+        jBCancel.addActionListener(new HandlerDeleteFields());
     }
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
@@ -52,7 +56,7 @@ public class RegistrarCompra extends javax.swing.JInternalFrame {
         jTFNameProduct = new javax.swing.JTextField();
         jFTFCost = new javax.swing.JFormattedTextField();
         jTFQuantity = new javax.swing.JTextField();
-        jBAddInfo = new javax.swing.JButton();
+        jBAddDetailPurchase = new javax.swing.JButton();
         jScrollPane1 = new javax.swing.JScrollPane();
         jTPresenterInfo = new javax.swing.JTable();
         jBReturn = new javax.swing.JButton();
@@ -160,7 +164,7 @@ public class RegistrarCompra extends javax.swing.JInternalFrame {
                 .addContainerGap(40, Short.MAX_VALUE))
         );
 
-        jBAddInfo.setText("Agregar");
+        jBAddDetailPurchase.setText("Agregar");
 
         jTPresenterInfo.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
@@ -205,7 +209,7 @@ public class RegistrarCompra extends javax.swing.JInternalFrame {
                     .addGroup(layout.createSequentialGroup()
                         .addGap(20, 20, 20)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                            .addComponent(jBAddInfo, javax.swing.GroupLayout.Alignment.TRAILING)
+                            .addComponent(jBAddDetailPurchase, javax.swing.GroupLayout.Alignment.TRAILING)
                             .addComponent(jPCustomer, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                             .addComponent(jPProduct, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                             .addComponent(jScrollPane1)
@@ -239,7 +243,7 @@ public class RegistrarCompra extends javax.swing.JInternalFrame {
                 .addGap(18, 18, 18)
                 .addComponent(jPProduct, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
-                .addComponent(jBAddInfo)
+                .addComponent(jBAddDetailPurchase)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 30, Short.MAX_VALUE)
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 186, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
@@ -267,7 +271,7 @@ public class RegistrarCompra extends javax.swing.JInternalFrame {
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton jBAddInfo;
+    private javax.swing.JButton jBAddDetailPurchase;
     private javax.swing.JButton jBCancel;
     private javax.swing.JButton jBReturn;
     private javax.swing.JButton jBSearch;
@@ -306,36 +310,89 @@ public class RegistrarCompra extends javax.swing.JInternalFrame {
                 long id = Long.parseLong(jTFId.getText());
                 customerFound = store.findCustomerByID(id);
                 jTFNameCustomer.setText(customerFound.getNombres());                
-            } catch (ObjectNotFoundException ex) {
-                JOptionPane.showMessageDialog(RegistrarCompra.this,
-                        "El cliente con identificacion" + jTFId.getText()
-                        + "no se encuentra registrado");
-            } catch (NumberFormatException ex) {
-                JOptionPane.showMessageDialog(RegistrarCompra.this, "El campo debe contener numeros");
+            } catch (ObjectNotFoundException | NumberFormatException ex) {
+                JOptionPane.showMessageDialog(RegistrarCompra.this, ex.getMessage());
             }
         }
     }
     
+   public class HandlerFindProduct implements ActionListener{
+       @Override
+       public void actionPerformed(ActionEvent e){
+           try{
+               long code = Long.parseLong( jTFCode.getText() );
+               productFound = store.findProductByCode(code);
+               jTFNameProduct.setText(productFound.getNombre());
+               jFTFCost.setValue(productFound.getCosto());
+               jTFQuantity.setText("1");
+               jTFQuantity.requestFocus();
+               jTFQuantity.selectAll();
+           } catch (NumberFormatException ex1){
+               JOptionPane.showMessageDialog(RegistrarCompra.this, ex1.getMessage());
+           } catch(ObjectNotFoundException ex1){
+               JOptionPane.showMessageDialog(RegistrarCompra.this, "El codigo del "
+                       + "producto es incorrecto");
+           } catch (Exception ex) {
+               Logger.getLogger(RegistrarCompra.class.getName()).log(Level.SEVERE, null, ex);
+           } 
+       }
+   }
+    
     public class HandlerAddDetailPurchase implements ActionListener{
-
+        private Double voidToZero(Object o){
+            if("".equals(o)){
+                return 0.0;
+            }
+            return (Double)o;
+        }
+        
         @Override
         public void actionPerformed(ActionEvent e) {
             try {
-                Producto product = store.findProductByCode( Long.parseLong( jTFCode.getText() ) );
-                purchase.addElementToDetallesCompra(new DetalleCompra(
+                long code = Long.parseLong( jTFCode.getText() );
+                Producto product = store.findProductByCode(code);
+                Double newSubtotal = product.getCosto();
+                Double currentSubtotal = voidToZero(jFTFSubtotal.getValue());
+                Double currentValueIVA = voidToZero(jFTFIva.getValue());
+                Double currentCostPurchase = voidToZero(jFTFTotal.getValue());
+                detailPurchase = new DetalleCompra(
                         Byte.parseByte(jTFQuantity.getText()), 
-                        product));
-            } catch (ObjectNotFoundException ex) {
-                JOptionPane.showMessageDialog(RegistrarCompra.this, "El producto no esta registrado");
+                        product);                
+                purchase.addElementToDetallesCompra(detailPurchase);
+                jFTFSubtotal.setValue(newSubtotal + currentSubtotal);
+                jFTFIva.setValue(detailPurchase.getValorIva() + currentValueIVA);
+                jFTFTotal.setValue(detailPurchase.getCostoCompra() + currentCostPurchase);
             } catch (NumberFormatException ex){
-                JOptionPane.showMessageDialog(RegistrarCompra.this, "El codigo debe contener numeros");
+                JOptionPane.showMessageDialog(RegistrarCompra.this, ex.getMessage());
             } catch (Exception ex) {
                 Logger.getLogger(RegistrarCompra.class.getName()).log(Level.SEVERE, null, ex);
             }
         }
     
     }
+    
+    public class HandlerReturnProduct implements ActionListener{
+        @Override
+        public void actionPerformed(ActionEvent e){
+            
+        }
+    }
 
+    public class HandlerDeleteFields implements ActionListener{
+        @Override
+        public void actionPerformed(ActionEvent e){
+            jTFId.setText("");
+            jTFNameCustomer.setText("");
+            jTFCode.setText("");
+            jTFNameProduct.setText("");
+            jFTFCost.setText("");
+            jTFQuantity.setText("");
+            jFTFSubtotal.setText("");
+            jFTFIva.setText("");
+            jFTFTotal.setText("");
+        }
+    }
+            
     public class ModelTb extends AbstractTableModel {
 
         private final String[] headersNames = {"Codigo", "Nombre", "Vr. Unit.", "Cant", "Costo"};
