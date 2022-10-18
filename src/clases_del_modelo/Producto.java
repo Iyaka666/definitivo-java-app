@@ -1,6 +1,5 @@
 package clases_del_modelo;
 
-import exceptions.CodeInvalidException;
 import exceptions.StringVoidAtribException;
 import java.util.Objects;
 
@@ -18,7 +17,7 @@ public class Producto {
     public Producto(long codigo, String nombre, Double costo, TipoProducto tipoProducto)
             throws Exception {
         if (!(1000000000000L >= codigo && codigo <= 999999999999L)) {
-            throw new CodeInvalidException("el codigo debe contener 12 digitos");
+            throw new NumberFormatException("el codigo debe contener 12 digitos");
         }
         
         if ("".equals(nombre.trim())) {
