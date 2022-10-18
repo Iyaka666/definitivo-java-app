@@ -10,7 +10,7 @@ package exceptions;
  */
 public class OutRangeGivenDoubleException extends Exception {
 
-    public OutRangeGivenDoubleException(String el_valor_no_esta_dentro_del_rango) {
+    public OutRangeGivenDoubleException(String string) {
         super();
     }
     
