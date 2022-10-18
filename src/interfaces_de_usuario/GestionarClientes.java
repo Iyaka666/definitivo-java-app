@@ -224,28 +224,26 @@ public class GestionarClientes extends javax.swing.JInternalFrame {
         @Override
         public void actionPerformed(ActionEvent e) {
             try {
+                long phone = Long.parseLong(jFTFTelefono.getText());
+                String email = (jFTFCorreo.getValue().toString()).trim();
+                long id = Long.parseLong(jTFIdentificacion.getText());
+                String names = jTFNombres.getText().trim();
+                String lastNames = jTFApellidos.getText().trim();
+                Genero gender = (Genero) jCBGenero.getSelectedItem();
                 if (customerRegistered == null) {
-                    customerRegistered = new Cliente( Long.parseLong(jFTFTelefono.getText()), //phone
-                            ( ""+jFTFCorreo.getValue() ).trim(),          //emails
-                            Long.parseLong(jTFIdentificacion.getText()),  //identification
-                            jTFNombres.getText().trim(),                  //names
-                            jTFApellidos.getText().trim(),                //lastnames
-                            (Genero) jCBGenero.getSelectedItem());        //gender
-                    esteAlmacen.addNewCliente(customerRegistered);        //added new customer
+                    customerRegistered = new Cliente(phone, email, id, names, lastNames, gender);
+                    esteAlmacen.addNewCliente(customerRegistered);  
                 } else {
-                    //editing information object customer 
-                    long id = Long.parseLong(jTFIdentificacion.getText());
                     customerRegistered = esteAlmacen.findCustomerByID(id);
-                    customerRegistered.setNombres( jTFNombres.getText().trim() );
-                    customerRegistered.setApellidos( jTFApellidos.getText().trim() );
-                    customerRegistered.setCorreo( jFTFCorreo.getText().trim() );
-                    customerRegistered.setGenero( (Genero)jCBGenero.getSelectedItem() );
-                    customerRegistered.setTelefono( Long.parseLong(jFTFTelefono.getText()) );
+                    customerRegistered.setNombres( names );
+                    customerRegistered.setApellidos( lastNames );
+                    customerRegistered.setCorreo( email );
+                    customerRegistered.setGenero( gender );
+                    customerRegistered.setTelefono( phone );
                     makeDeleteFields();
                 }
             } catch (StringVoidAtribException ex) {
-                JOptionPane.showMessageDialog(GestionarClientes.this,
-                        "El campo de texto no puede estar vacio");
+                JOptionPane.showMessageDialog(GestionarClientes.this, ex.getMessage());
             } catch (Exception ex) {
                 Logger.getLogger(GestionarClientes.class.getName()).log(Level.SEVERE, null, ex);
             }
