@@ -72,7 +72,7 @@ public class Almacen {
                 return p;
             }
         }
-        throw new ObjectNotFoundException("El producto con c�digo " + code
+        throw new ObjectNotFoundException("El producto con codigo " + code
                 + "no se encuentra registrado");
     }
 
