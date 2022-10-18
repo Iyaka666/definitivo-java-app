@@ -16,11 +16,8 @@ public class MainUI extends javax.swing.JFrame {
         jMIProducts.addActionListener(new HandlerShowProductsUI());
         jMITypeProducts.addActionListener(new HandlerShowTypeProductsUI());
         jMIPurchases.addActionListener(new HandlerShowSignInPurchaseUI());
-        jMIExit.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                setDefaultCloseOperation(EXIT_ON_CLOSE);
-            }
+        jMIExit.addActionListener((ActionEvent e) -> {
+            System.exit(0);
         });
     }
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
