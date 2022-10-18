@@ -7,7 +7,6 @@ package interfaces_de_usuario;
 import clases_del_modelo.Almacen;
 import clases_del_modelo.Producto;
 import clases_del_modelo.TipoProducto;
-import exceptions.CodeInvalidException;
 import exceptions.ObjectNotFoundException;
 import exceptions.StringVoidAtribException;
 import java.awt.event.ActionEvent;
@@ -231,7 +230,7 @@ public class GestionarProductos extends javax.swing.JInternalFrame {
                 if (option == JOptionPane.YES_OPTION) {
                     jTFNombre.requestFocus();
                 }
-            } catch (CodeInvalidException ex) {
+            } catch (NumberFormatException ex) {
                 JOptionPane.showMessageDialog(GestionarProductos.this,
                         "El numero del codigo es incorrecto");
             } catch (Exception ex) {
