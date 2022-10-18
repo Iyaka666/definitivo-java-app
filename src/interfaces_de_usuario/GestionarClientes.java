@@ -27,9 +27,9 @@ public class GestionarClientes extends javax.swing.JInternalFrame {
     public GestionarClientes(Almacen almacen) {
         this.esteAlmacen = almacen;
         initComponents();
-        HandlerFindById handlerFind = new HandlerFindById();
+        HandlerFindCustomer handlerFind = new HandlerFindCustomer();
         jBCancelar.doClick();
-        jBGuardar.addActionListener(new HandlerLogInCustomer());
+        jBGuardar.addActionListener(new HandlerSignInCustomer());
         jBBuscar.addActionListener(handlerFind);
         jTFIdentificacion.addActionListener(handlerFind);
     }
@@ -219,7 +219,7 @@ public class GestionarClientes extends javax.swing.JInternalFrame {
 
     }
 
-    public class HandlerLogInCustomer implements ActionListener {
+    public class HandlerSignInCustomer implements ActionListener {
 
         @Override
         public void actionPerformed(ActionEvent e) {
@@ -252,7 +252,7 @@ public class GestionarClientes extends javax.swing.JInternalFrame {
         }
     }
 
-    public class HandlerFindById implements ActionListener {
+    public class HandlerFindCustomer implements ActionListener {
 
         @Override
         public void actionPerformed(ActionEvent e) {
@@ -265,8 +265,7 @@ public class GestionarClientes extends javax.swing.JInternalFrame {
                 jFTFTelefono.setText(String.valueOf(customerFound.getTelefono()));
                 jFTFCorreo.setText(customerFound.getCorreo());
             } catch (NumberFormatException ex) {
-                JOptionPane.showMessageDialog(GestionarClientes.this,
-                        "El numero de identificacion es incorrecto");
+                JOptionPane.showMessageDialog(GestionarClientes.this, ex.getMessage());
             } catch (ObjectNotFoundException ex) {
                 int option = JOptionPane.showConfirmDialog(
                         GestionarClientes.this, "No se encuentra un cliente "
