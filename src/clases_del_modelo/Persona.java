@@ -15,8 +15,8 @@ public class Persona {
 
     public Persona(long identificador, String nombres, String apellidos, Genero genero) 
             throws Exception {
-        if(!((1000000L <= this.identificador && this.identificador <= 9999999L)
-                || (1000000000L <= this.identificador && this.identificador <= 9999999999L))) {
+        if(!((1000000L >= this.identificador && this.identificador <= 9999999L)
+                || (1000000000L >= this.identificador && this.identificador <= 9999999999L))) {
             throw new IdInvalidException("El numero debe identificacion debe "
                     + "contener entre 7 y 10 caracteres");
         }
