@@ -11,8 +11,11 @@ public class DetalleCompra {
     private Double valorIva;
     private Producto esteProducto;
 
-    public DetalleCompra(byte cantidad, Producto esteProducto) {
+    public DetalleCompra(byte cantidad, Producto esteProducto) throws Exception{
         this.esteProducto = esteProducto;
+        if(!(cantidad>=0 && cantidad <= 127)){
+            throw new NumberFormatException("La cantidad solo acepta valores desde 0 hasta 127");
+        }
         this.cantidad = cantidad;
         this.valorIva = this.esteProducto.getCosto() * 
                         this.esteProducto.getTipoProducto().getPorcentajeIva();        
