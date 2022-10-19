@@ -15,8 +15,6 @@ public class Compra {
     private Empleado esteEmpleado;
     private Cliente esteCliente;
 
-    public Compra() {
-    }
 
     public Compra(LocalDateTime registroCompra, Empleado empleado) {
         this.registroCompra = registroCompra;
