@@ -1,5 +1,6 @@
 package clases_del_modelo;
 
+import com.sun.jdi.ObjectCollectedException;
 import exceptions.ThisIsRegisteredException;
 import exceptions.ObjectNotFoundException;
 import java.util.LinkedList;
@@ -44,6 +45,16 @@ public class Almacen {
 
     public void addNewEmpleado(Empleado e) {
         misEmpleados.add(e);
+    }
+    
+    public Empleado findEmpleadoById(long id) throws Exception{
+        for(Empleado e: this.misEmpleados){
+            if(e.getIdentificador() == id){
+                return e;
+            }
+        }
+        throw new ObjectCollectedException("El empleado con identificacion "+id+
+                " no se encuentra registrado");
     }
 
     public void removeEmpleado(Empleado e) {
