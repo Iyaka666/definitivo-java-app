@@ -2,6 +2,13 @@
 <project-private xmlns="http://www.netbeans.org/ns/project-private/1">
     <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="0"/>
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
-        <group/>
+        <group>
+            <file>file:/C:/Users/duend/OneDrive/Escritorio/store/src/interfaces_de_usuario/RegistrarCompra.java</file>
+            <file>file:/C:/Users/duend/OneDrive/Escritorio/store/src/interfaces_de_usuario/MainUI.java</file>
+            <file>file:/C:/Users/duend/OneDrive/Escritorio/store/src/aplicacion/Main.java</file>
+            <file>file:/C:/Users/duend/OneDrive/Escritorio/store/src/interfaces_de_usuario/GestionarProductos.java</file>
+            <file>file:/C:/Users/duend/OneDrive/Escritorio/store/src/interfaces_de_usuario/GestionarClientes.java</file>
+            <file>file:/C:/Users/duend/OneDrive/Escritorio/store/src/clases_del_modelo/Almacen.java</file>
+        </group>
     </open-files>
 </project-private>

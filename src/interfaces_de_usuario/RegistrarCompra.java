@@ -22,12 +22,11 @@ public class RegistrarCompra extends javax.swing.JInternalFrame {
     private Almacen store;
     private Compra purchase;
     private Cliente customerFound;
-    private Producto productFound;
-    private DetalleCompra detailPurchase;
 
     public RegistrarCompra(Almacen a) {
         this.store = a;
         initComponents();
+        jTPresenterInfo.updateUI();
         HandlerFindCustomer hFindCustomer = new HandlerFindCustomer();
         jBSearch.addActionListener(hFindCustomer);
         jTFId.addActionListener(hFindCustomer);
@@ -321,17 +320,14 @@ public class RegistrarCompra extends javax.swing.JInternalFrame {
        public void actionPerformed(ActionEvent e){
            try{
                long code = Long.parseLong( jTFCode.getText() );
-               productFound = store.findProductByCode(code);
+               Producto productFound = store.findProductByCode(code);
                jTFNameProduct.setText(productFound.getNombre());
                jFTFCost.setValue(productFound.getCosto());
                jTFQuantity.setText("1");
                jTFQuantity.requestFocus();
                jTFQuantity.selectAll();
-           } catch (NumberFormatException ex1){
+           } catch (NumberFormatException | ObjectNotFoundException ex1){
                JOptionPane.showMessageDialog(RegistrarCompra.this, ex1.getMessage());
-           } catch(ObjectNotFoundException ex1){
-               JOptionPane.showMessageDialog(RegistrarCompra.this, "El codigo del "
-                       + "producto es incorrecto");
            } catch (Exception ex) {
                Logger.getLogger(RegistrarCompra.class.getName()).log(Level.SEVERE, null, ex);
            } 
@@ -339,11 +335,11 @@ public class RegistrarCompra extends javax.swing.JInternalFrame {
    }
     
     public class HandlerAddDetailPurchase implements ActionListener{
-        private Double voidToZero(Object o){
-            if("".equals(o)){
+        private Double voidToZero(Object object){
+            if("".equals(object)){
                 return 0.0;
             }
-            return (Double)o;
+            return (Double)object;
         }
         
         @Override
@@ -355,9 +351,10 @@ public class RegistrarCompra extends javax.swing.JInternalFrame {
                 Double currentSubtotal = voidToZero(jFTFSubtotal.getValue());
                 Double currentValueIVA = voidToZero(jFTFIva.getValue());
                 Double currentCostPurchase = voidToZero(jFTFTotal.getValue());
-                detailPurchase = new DetalleCompra(
+                DetalleCompra detailPurchase = new DetalleCompra(
                         Byte.parseByte(jTFQuantity.getText()), 
-                        product);                
+                        product); 
+                jTPresenterInfo.updateUI();
                 purchase.addElementToDetallesCompra(detailPurchase);
                 jFTFSubtotal.setValue(newSubtotal + currentSubtotal);
                 jFTFIva.setValue(detailPurchase.getValorIva() + currentValueIVA);
