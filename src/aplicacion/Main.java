@@ -7,6 +7,7 @@ package aplicacion;
 
 import clases_del_modelo.Almacen;
 import clases_del_modelo.Cliente;
+import clases_del_modelo.Empleado;
 import clases_del_modelo.Genero;
 import clases_del_modelo.Producto;
 import clases_del_modelo.TipoProducto;
@@ -51,6 +52,11 @@ public class Main {
             newStore.addNewProducto( new Producto(121212, "cepillo", 3000.0, tP3));
             newStore.addNewProducto( new Producto(101010, "tequila silver", 177000.0, tP3));
             newStore.addNewProducto( new Producto(131313, "whiski burchanans", 200000.0, tP3));
+            
+            //Empleados
+            newStore.addNewEmpleado(new Empleado("Maicol", "1234", 1000678, "Maicol Angel", "Castañeda Ipial", Genero.MASCULINO));
+            newStore.addNewEmpleado(new Empleado("Carla", "5678", 1000123, "carla Angela", "Fernandez Sepulveda", Genero.FEMENINO));
+            newStore.addNewEmpleado(new Empleado("Maria", "1357", 1000456, "Maria Alejandra", "Carreño Moreno", Genero.FEMENINO));
             //------------------------------------------------------------------
         } catch (Exception ex) {
             Logger.getLogger(Main.class.getName()).log(Level.SEVERE, null, ex);
