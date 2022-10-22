@@ -1,7 +1,6 @@
 package clases_del_modelo;
 
 import java.time.LocalDateTime;
-import java.util.LinkedList;
 import java.util.List;
 
 /**
@@ -11,11 +10,10 @@ import java.util.List;
 public class Compra {
 
     private LocalDateTime registroCompra;
-    private List<DetalleCompra> detallesDeCompra = new LinkedList<DetalleCompra>();
+    private List<DetalleCompra> detallesDeCompra;
     private Empleado esteEmpleado;
     private Cliente esteCliente;
-
-
+    
     public Compra(LocalDateTime registroCompra, Empleado empleado) {
         this.registroCompra = registroCompra;
         this.esteEmpleado = empleado;
@@ -31,6 +29,10 @@ public class Compra {
 
     public Cliente getEsteCliente() {
         return esteCliente;
+    }
+    
+    public void setCliente(Cliente c){
+        this.esteCliente = c;
     }
 
     public List<DetalleCompra> getDetallesDeCompra() {
