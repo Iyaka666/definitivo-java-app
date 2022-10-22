@@ -17,9 +17,8 @@ public class DetalleCompra {
             throw new NumberFormatException("La cantidad solo acepta valores desde 0 hasta 127");
         }
         this.cantidad = cantidad;
-        this.valorIva = this.esteProducto.getCosto() * 
-                        this.esteProducto.getTipoProducto().getPorcentajeIva();        
-        this.costoCompra = (this.esteProducto.getCosto() + this.valorIva)*this.cantidad;
+        this.valorIva = this.esteProducto.getCosto() * this.esteProducto.getTipoProducto().getPorcentajeIva();        
+        this.costoCompra = (this.esteProducto.getCosto() + this.valorIva) * this.cantidad;
     }
 
     public byte getCantidad() {
