@@ -39,12 +39,16 @@ public class Compra {
         return detallesDeCompra;
     }
 
-    public void addElementToDetallesCompra(DetalleCompra elemento) {
+    public void addDetallesCompraByObject(DetalleCompra elemento) {
         detallesDeCompra.add(elemento);
     }
 
-    public void removeElementToDetallesCompra(DetalleCompra elemento) {
-        detallesDeCompra.remove(elemento);
-    }   
+    public void removeDetalleCompraByIndex(int index) {
+        detallesDeCompra.remove(index);
+    }
+    
+    public void deleteAllDetallesCompra(){
+        detallesDeCompra.removeAll(detallesDeCompra);
+    }
 
 }
