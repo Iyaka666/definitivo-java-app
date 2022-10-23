@@ -6,11 +6,15 @@ import clases_del_modelo.Compra;
 import clases_del_modelo.DetalleCompra;
 import clases_del_modelo.Producto;
 import exceptions.ObjectNotFoundException;
+import java.awt.HeadlessException;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.time.LocalDateTime;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.JOptionPane;
+import javax.swing.event.AncestorEvent;
+import javax.swing.event.AncestorListener;
 import javax.swing.table.AbstractTableModel;
 
 /**
@@ -19,12 +23,16 @@ import javax.swing.table.AbstractTableModel;
  */
 public class RegistrarCompra extends javax.swing.JInternalFrame {
 
-    private Almacen store;
+    private final Almacen store;
     private Compra purchase;
     private Cliente customerFound;
+    private Producto productFound;
+    private Double subtotal = 0.0;
+    private Double valorIva = 0.0;
+    private Double total = 0.0;
 
-    public RegistrarCompra(Almacen a) {
-        this.store = a;
+    public RegistrarCompra(Almacen store) {
+        this.store = store;
         initComponents();
         jTPresenterInfo.updateUI();
         HandlerFindCustomer hFindCustomer = new HandlerFindCustomer();
@@ -33,7 +41,7 @@ public class RegistrarCompra extends javax.swing.JInternalFrame {
         jTFCode.addActionListener(new HandlerFindProduct());
         jBAddDetailPurchase.addActionListener(new HandlerAddDetailPurchase());
         jBReturn.addActionListener(new HandlerReturnProduct());
-        jBCancel.addActionListener(new HandlerDeleteFields());
+        jBCancel.addActionListener(new HandlerCancel());
     }
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
@@ -78,6 +86,8 @@ public class RegistrarCompra extends javax.swing.JInternalFrame {
 
         jLNameCustomer.setText("Nombre");
 
+        jTFNameCustomer.setEnabled(false);
+
         jBSearch.setText("...");
 
         javax.swing.GroupLayout jPCustomerLayout = new javax.swing.GroupLayout(jPCustomer);
@@ -121,6 +131,10 @@ public class RegistrarCompra extends javax.swing.JInternalFrame {
         jLCost.setText("Costo");
 
         jLQuantity.setText("Cantidad");
+
+        jTFNameProduct.setEnabled(false);
+
+        jFTFCost.setEnabled(false);
 
         javax.swing.GroupLayout jPProductLayout = new javax.swing.GroupLayout(jPProduct);
         jPProduct.setLayout(jPProductLayout);
@@ -176,6 +190,9 @@ public class RegistrarCompra extends javax.swing.JInternalFrame {
                 "Title 1", "Title 2", "Title 3", "Title 4"
             }
         ));
+        jTPresenterInfo.setCellSelectionEnabled(true);
+        jTPresenterInfo.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
+        jTPresenterInfo.setSelectionMode(javax.swing.ListSelectionModel.SINGLE_SELECTION);
         jScrollPane1.setViewportView(jTPresenterInfo);
 
         jBReturn.setText("Devolver");
@@ -192,6 +209,12 @@ public class RegistrarCompra extends javax.swing.JInternalFrame {
         jBSignInPurchase.setText("Registrar Compra");
 
         jBCancel.setText("Cancelar");
+
+        jFTFSubtotal.setEnabled(false);
+
+        jFTFIva.setEnabled(false);
+
+        jFTFTotal.setEnabled(false);
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -308,76 +331,107 @@ public class RegistrarCompra extends javax.swing.JInternalFrame {
             try {
                 long id = Long.parseLong(jTFId.getText());
                 customerFound = store.findCustomerByID(id);
-                jTFNameCustomer.setText(customerFound.getNombres());                
+                jTFNameCustomer.setText(customerFound.getNombres());
             } catch (ObjectNotFoundException | NumberFormatException ex) {
                 JOptionPane.showMessageDialog(RegistrarCompra.this, ex.getMessage());
             }
         }
     }
-    
-   public class HandlerFindProduct implements ActionListener{
-       @Override
-       public void actionPerformed(ActionEvent e){
-           try{
-               long code = Long.parseLong( jTFCode.getText() );
-               Producto productFound = store.findProductByCode(code);
-               jTFNameProduct.setText(productFound.getNombre());
-               jFTFCost.setValue(productFound.getCosto());
-               jTFQuantity.setText("1");
-               jTFQuantity.requestFocus();
-               jTFQuantity.selectAll();
-           } catch (NumberFormatException | ObjectNotFoundException ex1){
-               JOptionPane.showMessageDialog(RegistrarCompra.this, ex1.getMessage());
-           } catch (Exception ex) {
-               Logger.getLogger(RegistrarCompra.class.getName()).log(Level.SEVERE, null, ex);
-           } 
-       }
-   }
-    
-    public class HandlerAddDetailPurchase implements ActionListener{
-        private Double voidToZero(Object object){
-            if("".equals(object)){
-                return 0.0;
-            }
-            return (Double)object;
-        }
-        
+
+    public class HandlerFindProduct implements ActionListener {
+
         @Override
         public void actionPerformed(ActionEvent e) {
             try {
-                long code = Long.parseLong( jTFCode.getText() );
-                Producto product = store.findProductByCode(code);
-                Double newSubtotal = product.getCosto();
-                Double currentSubtotal = voidToZero(jFTFSubtotal.getValue());
-                Double currentValueIVA = voidToZero(jFTFIva.getValue());
-                Double currentCostPurchase = voidToZero(jFTFTotal.getValue());
+                long code = Long.parseLong(jTFCode.getText());
+                productFound = store.findProductByCode(code);
+                jTFNameProduct.setText(productFound.getNombre());
+                jFTFCost.setValue(productFound.getCosto());
+                jTFQuantity.setText("1");
+                jTFQuantity.requestFocus();
+                jTFQuantity.selectAll();
+            } catch (NumberFormatException | ObjectNotFoundException ex1) {
+                JOptionPane.showMessageDialog(RegistrarCompra.this, ex1.getMessage());
+            } catch (Exception ex) {
+                Logger.getLogger(RegistrarCompra.class.getName()).log(Level.SEVERE, null, ex);
+            }
+        }
+    }
+
+    public class HandlerAddDetailPurchase implements ActionListener {
+
+        @Override
+        public void actionPerformed(ActionEvent e) {
+            try {
+                long code = Long.parseLong(jTFCode.getText());
+                long id = Long.parseLong(jTFId.getText());
+                if (customerFound == null) {
+                    customerFound = store.findCustomerByID(id);
+                }
+                if (productFound == null) {
+                    productFound = store.findProductByCode(code);
+                }
                 DetalleCompra detailPurchase = new DetalleCompra(
-                        Byte.parseByte(jTFQuantity.getText()), 
-                        product); 
+                        Byte.parseByte(jTFQuantity.getText()),
+                        productFound);
+                if (purchase == null) {
+                    purchase = new Compra(LocalDateTime.now(), store.findEmpleadoById(1000123));
+                }
+                subtotal += productFound.getCosto();
+                valorIva += detailPurchase.getValorIva();
+                total += detailPurchase.getCostoCompra();
+                purchase.addDetallesCompraByObject(detailPurchase);
+                jFTFSubtotal.setValue(subtotal);
+                jFTFIva.setValue(valorIva);
+                jFTFTotal.setValue(total);
                 jTPresenterInfo.updateUI();
-                purchase.addElementToDetallesCompra(detailPurchase);
-                jFTFSubtotal.setValue(newSubtotal + currentSubtotal);
-                jFTFIva.setValue(detailPurchase.getValorIva() + currentValueIVA);
-                jFTFTotal.setValue(detailPurchase.getCostoCompra() + currentCostPurchase);
-            } catch (NumberFormatException ex){
+            } catch (NumberFormatException ex) {
                 JOptionPane.showMessageDialog(RegistrarCompra.this, ex.getMessage());
             } catch (Exception ex) {
                 Logger.getLogger(RegistrarCompra.class.getName()).log(Level.SEVERE, null, ex);
             }
         }
-    
-    }
-    
-    public class HandlerReturnProduct implements ActionListener{
-        @Override
-        public void actionPerformed(ActionEvent e){
-            
-        }
+
     }
 
-    public class HandlerDeleteFields implements ActionListener{
+    public class HandlerReturnProduct implements ActionListener {
+
         @Override
-        public void actionPerformed(ActionEvent e){
+        public void actionPerformed(ActionEvent e) {
+            try {
+                int detailPurchaseSelectRow = jTPresenterInfo.getSelectedRow();
+                int option = JOptionPane.showConfirmDialog(RegistrarCompra.this,
+                        "¿Esta seguro de eliminar ese producto?", "Registrar Compras",
+                        JOptionPane.YES_NO_OPTION);
+                if (option == JOptionPane.YES_OPTION) {
+                    DetalleCompra detailPurchase = purchase.getElementDetallesCompraEn(detailPurchaseSelectRow);
+                    subtotal -= detailPurchase.getEsteProducto().getCosto();
+                    valorIva -= detailPurchase.getValorIva();
+                    total -= detailPurchase.getCostoCompra();
+                    purchase.removeDetalleCompraByIndex(detailPurchaseSelectRow);
+                }
+            } catch (HeadlessException ex) {
+                Logger.getLogger(RegistrarCompra.class.getName()).log(Level.SEVERE, null, ex);
+            }
+        }
+    }
+    
+    public class HandlerSignInPurchase implements ActionListener{
+
+        @Override
+        public void actionPerformed(ActionEvent e) {
+            if (customerFound != null || productFound != null || !purchase.getDetallesDeCompra().isEmpty()){
+                store.addNewCompra(purchase);
+                JOptionPane.showMessageDialog(RegistrarCompra.this, "Registro exitoso");
+            }
+        }
+        
+    }
+
+    public class HandlerCancel implements ActionListener {
+
+        @Override
+        public void actionPerformed(ActionEvent e) {
             jTFId.setText("");
             jTFNameCustomer.setText("");
             jTFCode.setText("");
@@ -387,9 +441,12 @@ public class RegistrarCompra extends javax.swing.JInternalFrame {
             jFTFSubtotal.setText("");
             jFTFIva.setText("");
             jFTFTotal.setText("");
+            if(purchase != null){
+                purchase.deleteAllDetallesCompra();
+            }
         }
     }
-            
+    
     public class ModelTb extends AbstractTableModel {
 
         private final String[] headersNames = {"Codigo", "Nombre", "Vr. Unit.", "Cant", "Costo"};
@@ -420,6 +477,11 @@ public class RegistrarCompra extends javax.swing.JInternalFrame {
                     return dC.getCostoCompra();
             }
             return "";
+        }
+
+        @Override
+        public String getColumnName(int column) {
+            return headersNames[column];
         }
 
     }

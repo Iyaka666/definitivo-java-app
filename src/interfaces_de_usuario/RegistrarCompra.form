@@ -177,6 +177,9 @@
         <Component class="javax.swing.JTextField" name="jTFId">
         </Component>
         <Component class="javax.swing.JTextField" name="jTFNameCustomer">
+          <Properties>
+            <Property name="enabled" type="boolean" value="false"/>
+          </Properties>
         </Component>
         <Component class="javax.swing.JButton" name="jBSearch">
           <Properties>
@@ -268,8 +271,14 @@
         <Component class="javax.swing.JTextField" name="jTFCode">
         </Component>
         <Component class="javax.swing.JTextField" name="jTFNameProduct">
+          <Properties>
+            <Property name="enabled" type="boolean" value="false"/>
+          </Properties>
         </Component>
         <Component class="javax.swing.JFormattedTextField" name="jFTFCost">
+          <Properties>
+            <Property name="enabled" type="boolean" value="false"/>
+          </Properties>
         </Component>
         <Component class="javax.swing.JTextField" name="jTFQuantity">
         </Component>
@@ -297,6 +306,11 @@
                 <Column editable="true" title="Title 4" type="java.lang.Object"/>
               </Table>
             </Property>
+            <Property name="cellSelectionEnabled" type="boolean" value="true"/>
+            <Property name="cursor" type="java.awt.Cursor" editor="org.netbeans.modules.form.editors2.CursorEditor">
+              <Color id="Default Cursor"/>
+            </Property>
+            <Property name="selectionMode" type="int" value="0"/>
           </Properties>
         </Component>
       </SubComponents>
@@ -335,10 +349,19 @@
       </Properties>
     </Component>
     <Component class="javax.swing.JFormattedTextField" name="jFTFSubtotal">
+      <Properties>
+        <Property name="enabled" type="boolean" value="false"/>
+      </Properties>
     </Component>
     <Component class="javax.swing.JFormattedTextField" name="jFTFIva">
+      <Properties>
+        <Property name="enabled" type="boolean" value="false"/>
+      </Properties>
     </Component>
     <Component class="javax.swing.JFormattedTextField" name="jFTFTotal">
+      <Properties>
+        <Property name="enabled" type="boolean" value="false"/>
+      </Properties>
     </Component>
   </SubComponents>
 </Form>
