@@ -50,5 +50,9 @@ public class Compra {
     public void deleteAllDetallesCompra(){
         detallesDeCompra.removeAll(detallesDeCompra);
     }
+    
+    public DetalleCompra getElementDetallesCompraEn(int index){
+        return detallesDeCompra.get(index);
+    }
 
 }
