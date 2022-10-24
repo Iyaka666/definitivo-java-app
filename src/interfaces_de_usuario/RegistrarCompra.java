@@ -40,6 +40,7 @@ public class RegistrarCompra extends javax.swing.JInternalFrame {
         jBAddDetailPurchase.addActionListener(new HandlerAddDetailPurchase());
         jBReturn.addActionListener(new HandlerReturnProduct());
         jBCancel.addActionListener(new HandlerCancel());
+        jBSignInPurchase.addActionListener(new HandlerSignInPurchase());
     }
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
@@ -418,7 +419,7 @@ public class RegistrarCompra extends javax.swing.JInternalFrame {
 
         @Override
         public void actionPerformed(ActionEvent e) {
-            if (customerFound != null || productFound != null || !purchase.getDetallesDeCompra().isEmpty()){
+            if (customerFound != null && productFound != null && !purchase.getDetallesDeCompra().isEmpty()){
                 store.addNewCompra(purchase);
                 JOptionPane.showMessageDialog(RegistrarCompra.this, "Registro exitoso");
             }
