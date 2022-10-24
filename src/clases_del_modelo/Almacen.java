@@ -46,15 +46,24 @@ public class Almacen {
     public void addNewEmpleado(Empleado e) {
         misEmpleados.add(e);
     }
-    
-    public Empleado findEmpleadoById(long id) throws Exception{
-        for(Empleado e: this.misEmpleados){
-            if(e.getIdentificador() == id){
+
+    public Empleado findEmpleadoById(long id) throws Exception {
+        for (Empleado e : this.misEmpleados) {
+            if (e.getIdentificador() == id) {
                 return e;
             }
         }
-        throw new ObjectCollectedException("El empleado con identificacion "+id+
-                " no se encuentra registrado");
+        throw new ObjectNotFoundException("El empleado con identificacion " + id
+                + " no se encuentra registrado");
+    }
+
+    public Empleado findEmpleadoByUser(String user) throws Exception {
+        for (Empleado e : this.misEmpleados) {
+            if (e.getUsuario().equals(user)) {
+                return e;
+            }
+        }
+        throw new ObjectNotFoundException("Usuario : "+user+"No esta registrado\nInforme a superusuario para agregarlo");
     }
 
     public void removeEmpleado(Empleado e) {
