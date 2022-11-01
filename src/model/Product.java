@@ -9,55 +9,57 @@ import java.util.Objects;
  */
 public class Product {
 
-    private long codigo;
-    private String nombre;
-    private Double costo;
-    private TypeProduct esteTipoProducto;
+    private long code;
+    private String name;
+    private Double cost;
+    private TypeProduct typeProduct;
 
-    public Product(long codigo, String nombre, Double costo, TypeProduct tipoProducto)
+    public Product(long code, String name, Double cost, TypeProduct typeProduct)
             throws Exception {
-        if (!(100000000000L >= codigo && codigo <= 999999999999L)) {
-            throw new NumberFormatException("el codigo debe contener 12 digitos");
+        if (!(100000000000L >= code && code <= 999999999999L)) {
+            throw new CodeInvalidException("el code debe contener 12 digitos");
         }
         
-        if ("".equals(nombre.trim())) {
+        if ("".equals(name.trim())) {
             throw new StringVoidAtribException("la cadena de texto no puede estar vacia");
         }
-        this.codigo = codigo;
-        this.nombre = nombre;
-        this.costo = costo;
-        this.esteTipoProducto = tipoProducto;
+        this.code = code;
+        this.name = name;
+        this.cost = cost;
+        this.typeProduct = typeProduct;
     }
 
-    public long getCodigo() {
-        return codigo;
+    public long getCode() {
+        return code;
     }
 
-    public String getNombre() {
-        return nombre;
+    public void setCode(long code) {
+        this.code = code;
     }
 
-    public Double getCosto() {
-        return costo;
+    public String getName() {
+        return name;
     }
 
-    public TypeProduct getTipoProducto() {
-        return esteTipoProducto;
+    public void setName(String name) {
+        this.name = name;
     }
 
-    public void setNombre(String nombre) {
-        this.nombre = nombre;
+    public Double getCost() {
+        return cost;
     }
 
-    public void setCosto(Double costo) {
-        this.costo = costo;
+    public void setCost(Double cost) {
+        this.cost = cost;
     }
 
-    public void setEsteTipoProducto(TypeProduct esteTipoProducto) {
-        this.esteTipoProducto = esteTipoProducto;
+    public TypeProduct getTypeProduct() {
+        return typeProduct;
     }
-    
-    
+
+    public void setTypeProduct(TypeProduct typeProduct) {
+        this.typeProduct = typeProduct;
+    }
 
     @Override
     public boolean equals(Object obj) {
@@ -71,16 +73,16 @@ public class Product {
             return false;
         }
         final Product other = (Product) obj;
-        if (this.codigo != other.codigo) {
+        if (this.code != other.code) {
             return false;
         }
-        if (!Objects.equals(this.nombre, other.nombre)) {
+        if (!Objects.equals(this.name, other.name)) {
             return false;
         }
-        if (!Objects.equals(this.costo, other.costo)) {
+        if (!Objects.equals(this.cost, other.cost)) {
             return false;
         }
-        return Objects.equals(this.esteTipoProducto, other.esteTipoProducto);
+        return Objects.equals(this.typeProduct, other.typeProduct);
     }
 
 }

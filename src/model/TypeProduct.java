@@ -14,48 +14,45 @@ import exceptions.StringVoidAtribException;
  */
 public class TypeProduct {
 
-    private String nombre;
-    private Double porcentajeIva;
+    private String name;
+    private Double percentageIva;
 
-    public TypeProduct(String nombre, Double porcentajeIva) throws Exception {
+    public TypeProduct(String name, Double percentageIva) throws Exception {
         
-        if("".equals(nombre.trim()) ){
-            throw new StringVoidAtribException("La cadena esta vacia");
+        if("".equals(name.trim()) ){
+            throw new StringVoidAtribException("Name is empty");
         }
         
-        if(!((porcentajeIva >= 0)&&(porcentajeIva <= 1))){
-            throw new OutRangeGivenDoubleException("El valor no esta dentro del rango");
+        if(!((percentageIva >= 0.0)&&(percentageIva <= 1.0))){
+            throw new OutRangeGivenDoubleException("Value is incorrect to percentage");
         }
         
-        this.nombre = nombre;
-        this.porcentajeIva = porcentajeIva;
+        this.name = name;
+        this.percentageIva = percentageIva;
     }
 
-    public String getNombre() {
-        return nombre;
+    public String getName() {
+        return name;
     }
 
-    public Double getPorcentajeIva() {
-        return porcentajeIva;
+    public Double getPercentageIva() {
+        return percentageIva;
     }
 
-    public void setNombre(String nombre) {
-        if (this.nombre.equals(nombre)) {
+    public void setName(String name) {
+        if (this.name.equals(name)) {
             return;
         }
-        this.nombre = nombre;
+        this.name = name;
     }
 
-    public void setPorcentajeIva(Double porcentajeIva) {
-        if (this.porcentajeIva.equals(porcentajeIva)) {
-            return;
-        }
-        this.porcentajeIva = porcentajeIva;
+    public void setPercentageIva(Double percentageIva) {
+        this.percentageIva = percentageIva;
     }
 
     @Override
     public String toString() {
-        return nombre;
+        return name;
     }
 
 }

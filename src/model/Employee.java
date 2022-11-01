@@ -6,30 +6,31 @@ package model;
  */
 public class Employee extends Person {
 
-    private String usuario;
-    private String contrasenia;
+    private String user;
+    private String password;
 
-    public Employee(String usuario, String contrasenia, int identificacion,
-            String nombre, String apellido, Gender genero) throws Exception {
-        super(identificacion, nombre, apellido, genero);
-        this.usuario = usuario;
-        this.contrasenia = contrasenia;
+    public Employee(String user, String password, int identification,
+            String name, String lastName, Gender gender) throws Exception {
+        super(identification, name, lastName, gender);
+        this.user = user;
+        this.password = password;
     }
 
-    public String getUsuario() {
-        return usuario;
+    public String getUser() {
+        return user;
     }
 
-    public String getContrasenia() {
-        return contrasenia;
+    public void setUser(String user) {
+        this.user = user;
     }
 
-    public void setContrasenia(String contrasenia) {
-        this.contrasenia = contrasenia;
+    public String getPassword() {
+        return password;
     }
 
-    public void setUsuario(String usuario) {
-        this.usuario = usuario;
-    }   
-    
+    public void setPassword(String password) {
+        this.password = password;
+    }
+
+
 }

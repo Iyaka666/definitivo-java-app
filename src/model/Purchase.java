@@ -9,50 +9,50 @@ import java.util.List;
  */
 public class Purchase {
 
-    private LocalDateTime registroCompra;
-    private List<DetailPurchase> detallesDeCompra;
-    private Employee esteEmpleado;
-    private Customer esteCliente;
+    private LocalDateTime dataTimePurchase;
+    private List<DetailPurchase> detailsPurchase;
+    private Employee employee;
+    private Customer customer;
     
-    public Purchase(LocalDateTime registroCompra, Employee empleado) {
-        this.registroCompra = registroCompra;
-        this.esteEmpleado = empleado;
+    public Purchase(LocalDateTime dataTimePurchase, Employee employee) {
+        this.dataTimePurchase = dataTimePurchase;
+        this.employee = employee;
     }
 
-    public LocalDateTime getRegistroCompra() {
-        return registroCompra;
+    public LocalDateTime getDataTimePurchase() {
+        return dataTimePurchase;
     }
 
-    public Employee getEsteEmpleado() {
-        return esteEmpleado;
+    public Employee getEmployee() {
+        return employee;
     }
 
-    public Customer getEsteCliente() {
-        return esteCliente;
-    }
-    
-    public void setCliente(Customer c){
-        this.esteCliente = c;
-    }
-
-    public List<DetailPurchase> getDetallesDeCompra() {
-        return detallesDeCompra;
-    }
-
-    public void addDetallesCompraByObject(DetailPurchase elemento) {
-        detallesDeCompra.add(elemento);
-    }
-
-    public void removeDetalleCompraByIndex(int index) {
-        detallesDeCompra.remove(index);
+    public Customer getCustomer() {
+        return customer;
     }
     
-    public void deleteAllDetallesCompra(){
-        detallesDeCompra.removeAll(detallesDeCompra);
+    public void setCustomer(Customer c){
+        this.customer = c;
+    }
+
+    public List<DetailPurchase> getDetailsPurchase() {
+        return detailsPurchase;
+    }
+
+    public void addDetailsPurchaseByObject(DetailPurchase dP) {
+        detailsPurchase.add(dP);
+    }
+
+    public void removeDetailPurchaseByIndex(int index) {
+        detailsPurchase.remove(index);
     }
     
-    public DetailPurchase getElementDetallesCompraEn(int index){
-        return detallesDeCompra.get(index);
+    public void deleteAllDetailsPurchase(){
+        detailsPurchase.removeAll(detailsPurchase);
+    }
+    
+    public DetailPurchase getElementDetailsPurchaseAt(int index){
+        return detailsPurchase.get(index);
     }
 
 }

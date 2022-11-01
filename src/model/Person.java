@@ -8,59 +8,61 @@ import exceptions.StringVoidAtribException;
  */
 public class Person {
 
-    private long identificador;
-    private String nombres;
-    private String apellidos;
-    private Gender genero;
+    private long identification;
+    private String names;
+    private String lastNames;
+    private Gender gender;
 
-    public Person(long identificador, String nombres, String apellidos, Gender genero) 
+    public Person(long identification, String names, String lastNames, Gender gender) 
             throws Exception {
-        if(!((1000000L >= identificador && identificador <= 9999999L)
-                || (1000000000L >= identificador && identificador <= 9999999999L))) {
-            throw new IdInvalidException("El numero debe identificacion debe "
-                    + "contener 7 o 10 caracteres");
+        if(!((1000000L >= identification && identification <= 9999999L)
+                || (1000000000L >= identification && identification <= 9999999999L))) {
+            throw new IdInvalidException("The number identification has not "
+                    + "7 or 10 characters");
         }
-        if ("".equals(nombres.trim())) {
-            throw new StringVoidAtribException(
-                    "Los nombres no pueden ser una cadena de texto vacio");
+        if ("".equals(names.trim())) {
+            throw new StringVoidAtribException("Names cannot be empty");
         }
-        if ("".equals(apellidos.trim())) {
-            throw new StringVoidAtribException(
-                    "Los apellidos no pueden ser cadenas de texto vacio");
+        if ("".equals(lastNames.trim())) {
+            throw new StringVoidAtribException("Lastnames cannot be empty");
         }
 
-        this.identificador = identificador;
-        this.nombres = nombres;
-        this.apellidos = apellidos;
-        this.genero = genero;
+        this.identification = identification;
+        this.names = names;
+        this.lastNames = lastNames;
+        this.gender = gender;
     }
 
-    public long getIdentificador() {
-        return identificador;
+    public long getIdentification() {
+        return identification;
     }
 
-    public String getNombres() {
-        return nombres;
+    public void setIdentification(long identification) {
+        this.identification = identification;
     }
 
-    public String getApellidos() {
-        return apellidos;
+    public String getNames() {
+        return names;
     }
 
-    public Gender getGenero() {
-        return genero;
+    public void setNames(String names) {
+        this.names = names;
     }
 
-    public void setNombres(String nombres) {
-        this.nombres = nombres;
+    public String getLastNames() {
+        return lastNames;
     }
 
-    public void setApellidos(String apellidos) {
-        this.apellidos = apellidos;
+    public void setLastNames(String lastNames) {
+        this.lastNames = lastNames;
     }
 
-    public void setGenero(Gender genero) {
-        this.genero = genero;
+    public Gender getGender() {
+        return gender;
+    }
+
+    public void setGender(Gender gender) {
+        this.gender = gender;
     }
     
     @Override
@@ -75,7 +77,7 @@ public class Person {
             return false;
         }
         final Person other = (Person) obj;
-        if (this.identificador != other.identificador) {
+        if (this.identification != other.identification) {
             return false;
         }
         return true;

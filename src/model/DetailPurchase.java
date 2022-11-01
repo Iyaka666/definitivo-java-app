@@ -6,35 +6,35 @@ package model;
  */
 public class DetailPurchase {
 
-    private byte cantidad;
-    private Double costoCompra;
-    private Double valorIva;
-    private Product esteProducto;
+    private short quantity;
+    private Double costPurchase;
+    private Double valueIva;
+    private Product product;
 
-    public DetailPurchase(byte cantidad, Product esteProducto) throws Exception{
-        this.esteProducto = esteProducto;
-        if(!(cantidad>=0 && cantidad <= 127)){
-            throw new NumberFormatException("La cantidad solo acepta valores desde 0 hasta 127");
+    public DetailPurchase(short quantity, Product product) throws Exception{
+        this.product = product;
+        if(!(quantity>=0)){
+            throw new NegativeInvalidException("it does not accept negative values");
         }
-        this.cantidad = cantidad;
-        this.valorIva = this.esteProducto.getCosto() * this.esteProducto.getTipoProducto().getPorcentajeIva();        
-        this.costoCompra = (this.esteProducto.getCosto() + this.valorIva) * this.cantidad;
+        this.quantity = quantity;
+        this.valueIva = this.product.getCost() * this.product.getTypeProduct().getPercentageIva();        
+        this.costPurchase = (this.product.getCost() + this.valueIva) * this.quantity;
     }
 
-    public byte getCantidad() {
-        return cantidad;
+    public short getQuantity() {
+        return quantity;
     }
 
-    public Double getCostoCompra() {
-        return costoCompra;
+    public Double getCostPurchase() {
+        return costPurchase;
     }
 
-    public Double getValorIva() {
-        return valorIva;
+    public Double getValueIva() {
+        return valueIva;
     }
 
-    public Product getEsteProducto() {
-        return esteProducto;
+    public Product getProduct() {
+        return product;
     }
 
 }

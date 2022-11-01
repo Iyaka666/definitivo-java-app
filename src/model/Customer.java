@@ -6,35 +6,40 @@ package model;
  */
 public class Customer extends Person {
 
-    private long telefono;
-    private String correo;
-    private int puntos;
+    private long phone;
+    private String email;
+    private int points;
 
-    public Customer(long telefono, String correo, long identificacion,
-            String nombre, String apellido, Gender genero) throws Exception {
-        super(identificacion, nombre, apellido, genero);
-        this.telefono = telefono;
-        this.correo = correo;
-        this.puntos = 0;
+    public Customer(long phone, String email, long identification,
+            String name, String lastName, Gender gender) throws Exception {
+        super(identification, name, lastName, gender);
+        this.phone = phone;
+        this.email = email;
+        this.points = 0;
     }
 
-    public long getTelefono() {
-        return telefono;
+    public long getPhone() {
+        return phone;
     }
 
-    public String getCorreo() {
-        return correo;
+    public void setPhone(long phone) {
+        this.phone = phone;
     }
 
-    public int getPuntos() {
-        return puntos;
+    public String getEmail() {
+        return email;
     }
 
-    public void setTelefono(long telefono) {
-        this.telefono = telefono;
+    public void setEmail(String email) {
+        this.email = email;
     }
 
-    public void setCorreo(String correo) {
-        this.correo = correo;
+    public int getPoints() {
+        return points;
     }
+
+    public void setPoints(int points) {
+        this.points = points;
+    }
+
 }
