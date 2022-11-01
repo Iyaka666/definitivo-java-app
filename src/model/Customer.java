@@ -38,8 +38,4 @@ public class Customer extends Person {
         return points;
     }
 
-    public void setPoints(int points) {
-        this.points = points;
-    }
-
 }
