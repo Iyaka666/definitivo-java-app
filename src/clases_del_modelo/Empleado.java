@@ -1,5 +1,4 @@
 package clases_del_modelo;
- import logic_encrypt.EncryptPassword;
 
 /**
  *
@@ -8,9 +7,9 @@ package clases_del_modelo;
 public class Empleado extends Persona {
 
     private String usuario;
-    private EncryptPassword contrasenia;
+    private String contrasenia;
 
-    public Empleado(String usuario, EncryptPassword contrasenia, int identificacion,
+    public Empleado(String usuario, String contrasenia, int identificacion,
             String nombre, String apellido, Genero genero) throws Exception {
         super(identificacion, nombre, apellido, genero);
         this.usuario = usuario;
@@ -21,11 +20,11 @@ public class Empleado extends Persona {
         return usuario;
     }
 
-    public EncryptPassword getContrasenia() {
+    public String getContrasenia() {
         return contrasenia;
     }
 
-    public void setContrasenia(EncryptPassword contrasenia) {
+    public void setContrasenia(String contrasenia) {
         this.contrasenia = contrasenia;
     }
 
