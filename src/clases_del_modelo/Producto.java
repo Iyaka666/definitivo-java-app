@@ -16,7 +16,7 @@ public class Producto {
 
     public Producto(long codigo, String nombre, Double costo, TipoProducto tipoProducto)
             throws Exception {
-        if (!(1000000000000L >= codigo && codigo <= 999999999999L)) {
+        if (!(100000000000L >= codigo && codigo <= 999999999999L)) {
             throw new NumberFormatException("el codigo debe contener 12 digitos");
         }
         
