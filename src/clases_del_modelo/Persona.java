@@ -63,8 +63,6 @@ public class Persona {
         this.genero = genero;
     }
     
-    
-
     @Override
     public boolean equals(Object obj) {
         if (this == obj) {
