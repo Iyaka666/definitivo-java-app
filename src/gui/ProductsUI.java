@@ -35,10 +35,10 @@ public class ProductsUI extends javax.swing.JInternalFrame {
         initComponents();
         //Agregando eventos        
         HandlerFindProduct handlerFind = new HandlerFindProduct();
-        jBBuscar.addActionListener(handlerFind);
-        jTFCodigo.addActionListener(handlerFind);
-        jBGuardar.addActionListener(new HandlerSaveProduct());
-        jBCancelar.addActionListener(new HandlerDeleteFields());
+        btnSearch.addActionListener(handlerFind);
+        txfCode.addActionListener(handlerFind);
+        btnSave.addActionListener(new HandlerSaveProduct());
+        btnCancel.addActionListener(new HandlerDeleteFields());
     }
 
     /**
@@ -50,112 +50,112 @@ public class ProductsUI extends javax.swing.JInternalFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        jTFCodigo = new javax.swing.JTextField();
-        jTFNombre = new javax.swing.JTextField();
-        jFTFCosto = new javax.swing.JFormattedTextField();
-        jCBTipoDeProducto = new javax.swing.JComboBox<>();
-        jBGuardar = new javax.swing.JButton();
-        jBCancelar = new javax.swing.JButton();
-        jBBuscar = new javax.swing.JButton();
-        jLGestionarProductos = new javax.swing.JLabel();
-        jLTipoDeProducto = new javax.swing.JLabel();
+        txfCode = new javax.swing.JTextField();
+        txfName = new javax.swing.JTextField();
+        ftxCost = new javax.swing.JFormattedTextField();
+        cbxTypeProduct = new javax.swing.JComboBox<>();
+        btnSave = new javax.swing.JButton();
+        btnCancel = new javax.swing.JButton();
+        btnSearch = new javax.swing.JButton();
+        labManagementProducts = new javax.swing.JLabel();
+        labTypeProduct = new javax.swing.JLabel();
 
         setBackground(new java.awt.Color(255, 255, 255));
 
-        jLCodigo.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
-        jLCodigo.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
-        jLCodigo.setText("Codigo :");
+        labCode.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
+        labCode.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
+        labCode.setText("Codigo :");
 
-        jLNombre.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
-        jLNombre.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
-        jLNombre.setText("Nombre :");
+        labName.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
+        labName.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
+        labName.setText("Nombre :");
 
-        jLCosto.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
-        jLCosto.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
-        jLCosto.setText("Costo :");
+        labCost.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
+        labCost.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
+        labCost.setText("Costo :");
 
-        jFTFCosto.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.NumberFormatter(new java.text.DecimalFormat("#0.00"))));
+        ftxCost.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.NumberFormatter(new java.text.DecimalFormat("#0.00"))));
 
-        jCBTipoDeProducto.setModel(new ComboBoxProducts());
+        cbxTypeProduct.setModel(new ComboBoxProducts());
 
-        jBGuardar.setText("Guardar");
+        btnSave.setText("Guardar");
 
-        jBCancelar.setText("Cancelar");
+        btnCancel.setText("Cancelar");
 
-        jBBuscar.setText("...");
+        btnSearch.setText("...");
 
-        jLGestionarProductos.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
-        jLGestionarProductos.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        jLGestionarProductos.setText("Gestionar Productos");
+        labManagementProducts.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
+        labManagementProducts.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        labManagementProducts.setText("Gestionar Productos");
 
-        jLTipoDeProducto.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
-        jLTipoDeProducto.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
-        jLTipoDeProducto.setText("Tipo de Producto :");
+        labTypeProduct.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
+        labTypeProduct.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
+        labTypeProduct.setText("Tipo de Producto :");
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jLGestionarProductos, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addComponent(labManagementProducts, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
             .addGroup(layout.createSequentialGroup()
                 .addGap(0, 0, Short.MAX_VALUE)
-                .addComponent(jBGuardar)
+                .addComponent(btnSave)
                 .addGap(59, 59, 59)
-                .addComponent(jBCancelar)
+                .addComponent(btnCancel)
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                     .addGroup(layout.createSequentialGroup()
                         .addGap(67, 67, 67)
-                        .addComponent(jLCodigo, javax.swing.GroupLayout.PREFERRED_SIZE, 79, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addComponent(labCode, javax.swing.GroupLayout.PREFERRED_SIZE, 79, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                         .addGroup(layout.createSequentialGroup()
                             .addGap(21, 21, 21)
-                            .addComponent(jLTipoDeProducto, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                            .addComponent(labTypeProduct, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                         .addGroup(layout.createSequentialGroup()
                             .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                             .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                                .addComponent(jLNombre, javax.swing.GroupLayout.PREFERRED_SIZE, 85, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addComponent(jLCosto, javax.swing.GroupLayout.PREFERRED_SIZE, 67, javax.swing.GroupLayout.PREFERRED_SIZE)))))
+                                .addComponent(labName, javax.swing.GroupLayout.PREFERRED_SIZE, 85, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addComponent(labCost, javax.swing.GroupLayout.PREFERRED_SIZE, 67, javax.swing.GroupLayout.PREFERRED_SIZE)))))
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
                         .addGap(48, 48, 48)
-                        .addComponent(jTFCodigo, javax.swing.GroupLayout.PREFERRED_SIZE, 176, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(txfCode, javax.swing.GroupLayout.PREFERRED_SIZE, 176, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(jBBuscar))
+                        .addComponent(btnSearch))
                     .addGroup(layout.createSequentialGroup()
                         .addGap(49, 49, 49)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                            .addComponent(jTFNombre)
-                            .addComponent(jFTFCosto)
-                            .addComponent(jCBTipoDeProducto, 0, 230, Short.MAX_VALUE))))
+                            .addComponent(txfName)
+                            .addComponent(ftxCost)
+                            .addComponent(cbxTypeProduct, 0, 230, Short.MAX_VALUE))))
                 .addGap(55, 55, 55))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addComponent(jLGestionarProductos, javax.swing.GroupLayout.PREFERRED_SIZE, 41, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(labManagementProducts, javax.swing.GroupLayout.PREFERRED_SIZE, 41, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jBBuscar)
-                    .addComponent(jTFCodigo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jLCodigo))
+                    .addComponent(btnSearch)
+                    .addComponent(txfCode, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(labCode))
                 .addGap(30, 30, 30)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLNombre)
-                    .addComponent(jTFNombre, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(labName)
+                    .addComponent(txfName, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(28, 28, 28)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLCosto)
-                    .addComponent(jFTFCosto, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(labCost)
+                    .addComponent(ftxCost, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(24, 24, 24)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jCBTipoDeProducto, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jLTipoDeProducto, javax.swing.GroupLayout.PREFERRED_SIZE, 22, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(cbxTypeProduct, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(labTypeProduct, javax.swing.GroupLayout.PREFERRED_SIZE, 22, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(34, 34, 34)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jBGuardar)
-                    .addComponent(jBCancelar))
+                    .addComponent(btnSave)
+                    .addComponent(btnCancel))
                 .addGap(88, 88, 88))
         );
 
@@ -164,18 +164,18 @@ public class ProductsUI extends javax.swing.JInternalFrame {
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton jBBuscar;
-    private javax.swing.JButton jBCancelar;
-    private javax.swing.JButton jBGuardar;
-    private javax.swing.JComboBox<TypeProduct> jCBTipoDeProducto;
-    private javax.swing.JFormattedTextField jFTFCosto;
-    private final javax.swing.JLabel jLCodigo = new javax.swing.JLabel();
-    private final javax.swing.JLabel jLCosto = new javax.swing.JLabel();
-    private javax.swing.JLabel jLGestionarProductos;
-    private final javax.swing.JLabel jLNombre = new javax.swing.JLabel();
-    private javax.swing.JLabel jLTipoDeProducto;
-    private javax.swing.JTextField jTFCodigo;
-    private javax.swing.JTextField jTFNombre;
+    private javax.swing.JButton btnCancel;
+    private javax.swing.JButton btnSave;
+    private javax.swing.JButton btnSearch;
+    private javax.swing.JComboBox<TypeProduct> cbxTypeProduct;
+    private javax.swing.JFormattedTextField ftxCost;
+    private final javax.swing.JLabel labCode = new javax.swing.JLabel();
+    private final javax.swing.JLabel labCost = new javax.swing.JLabel();
+    private javax.swing.JLabel labManagementProducts;
+    private final javax.swing.JLabel labName = new javax.swing.JLabel();
+    private javax.swing.JLabel labTypeProduct;
+    private javax.swing.JTextField txfCode;
+    private javax.swing.JTextField txfName;
     // End of variables declaration//GEN-END:variables
 
     public class HandlerDeleteFields implements ActionListener {
@@ -183,11 +183,11 @@ public class ProductsUI extends javax.swing.JInternalFrame {
         @Override
         public void actionPerformed(ActionEvent e) {
 
-            jTFCodigo.setText("");
-            jTFNombre.setText("");
-            jFTFCosto.setText("");
-            jCBTipoDeProducto.setSelectedItem(null);
-            jCBTipoDeProducto.updateUI();
+            txfCode.setText("");
+            txfName.setText("");
+            ftxCost.setText("");
+            cbxTypeProduct.setSelectedItem(null);
+            cbxTypeProduct.updateUI();
 
         }
     }
@@ -198,17 +198,17 @@ public class ProductsUI extends javax.swing.JInternalFrame {
         public void actionPerformed(ActionEvent e) {
 
             try {
-                long code = Long.parseLong(jTFCodigo.getText());
+                long code = Long.parseLong(txfCode.getText());
                 Product productFound = store.findProductByCode(code);
-                jTFNombre.setText(productFound.getName());
-                jFTFCosto.setText(productFound.getCost().toString());
-                jCBTipoDeProducto.setSelectedItem(productFound.getTypeProduct());
+                txfName.setText(productFound.getName());
+                ftxCost.setText(productFound.getCost().toString());
+                cbxTypeProduct.setSelectedItem(productFound.getTypeProduct());
             } catch (ObjectNotFoundException ex) {
                 int option = JOptionPane.showConfirmDialog(ProductsUI.this,
                         ex.getMessage() + "\nyou want to register it?",
                         "Gestionar Productos", JOptionPane.YES_NO_OPTION);
                 if (option == JOptionPane.YES_OPTION) {
-                    jTFNombre.requestFocus();
+                    txfName.requestFocus();
                 }
             } catch (CodeInvalidException ex) {
                 JOptionPane.showMessageDialog(ProductsUI.this, ex.getMessage());
@@ -223,18 +223,18 @@ public class ProductsUI extends javax.swing.JInternalFrame {
         @Override
         public void actionPerformed(ActionEvent e) {
             try {
-                long code = Long.parseLong(jTFCodigo.getText());
+                long code = Long.parseLong(txfCode.getText());
                 if (productRegistered == null) {
-                    String name = jTFNombre.getText();
-                    Double cost = Double.parseDouble((String.valueOf(jFTFCosto.getValue()).trim()));
-                    TypeProduct typeProduct = (TypeProduct) jCBTipoDeProducto.getSelectedItem();
+                    String name = txfName.getText();
+                    Double cost = Double.parseDouble((String.valueOf(ftxCost.getValue()).trim()));
+                    TypeProduct typeProduct = (TypeProduct) cbxTypeProduct.getSelectedItem();
                     productRegistered = new Product(code, name, cost, typeProduct);
                     store.addNewProduct(productRegistered);
                 } else {
                     productRegistered = store.findProductByCode(code);
-                    productRegistered.setName(jTFNombre.getText());
-                    productRegistered.setCost(Double.parseDouble(jFTFCosto.getText()));
-                    productRegistered.setTypeProduct((TypeProduct) jCBTipoDeProducto.getSelectedItem());
+                    productRegistered.setName(txfName.getText());
+                    productRegistered.setCost(Double.parseDouble(ftxCost.getText()));
+                    productRegistered.setTypeProduct((TypeProduct) cbxTypeProduct.getSelectedItem());
                 }
             } catch (StringVoidException | CodeInvalidException ex) {
                 JOptionPane.showMessageDialog(ProductsUI.this, ex.getMessage());
