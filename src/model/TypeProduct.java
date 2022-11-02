@@ -1,7 +1,7 @@
 package model;
 
 import exceptions.OutRangeGivenDoubleException;
-import exceptions.StringVoidAtribException;
+import exceptions.StringVoidException;
 
 /*
  * To change this license header, choose License Headers in Project Properties.
@@ -20,7 +20,7 @@ public class TypeProduct {
     public TypeProduct(String name, Double percentageIva) throws Exception {
         
         if("".equals(name.trim()) ){
-            throw new StringVoidAtribException("Name is empty");
+            throw new StringVoidException("Name is empty");
         }
         
         if(!((percentageIva >= 0.0)&&(percentageIva <= 1.0))){
