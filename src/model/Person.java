@@ -1,7 +1,7 @@
 package model;
 
 import exceptions.IdInvalidException;
-import exceptions.StringVoidAtribException;
+import exceptions.StringVoidException;
 
 /**
  * @author Marlon E. Zambrano Z.
@@ -21,10 +21,10 @@ public class Person {
                     + "7 or 10 characters");
         }
         if ("".equals(names.trim())) {
-            throw new StringVoidAtribException("Names cannot be empty");
+            throw new StringVoidException("Names cannot be empty");
         }
         if ("".equals(lastNames.trim())) {
-            throw new StringVoidAtribException("Lastnames cannot be empty");
+            throw new StringVoidException("Lastnames cannot be empty");
         }
 
         this.identification = identification;
