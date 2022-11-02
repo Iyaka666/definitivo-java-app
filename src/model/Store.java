@@ -35,7 +35,7 @@ public class Store {
             }
         }
         throw new ObjectNotFoundException(
-                "Identification of customer " + id + " not found");
+                "Customer with identification " + id + " not found");
     }
 
     public void removeCustomer(Customer c) {
@@ -52,7 +52,7 @@ public class Store {
                 return e;
             }
         }
-        throw new ObjectNotFoundException("Identification of employee " + id
+        throw new ObjectNotFoundException("Employee with identification " + id
                 + " not found");
     }
 
@@ -70,7 +70,7 @@ public class Store {
 
     public void addNewProduct(Product p) throws Exception {
         if (this.products.contains(p)) {
-            throw new ThisIsRegisteredException("Code of product  "
+            throw new ThisIsRegisteredException("Product with code "
                     + p.getCode() + " already this have been registered");
         }
         products.add(p);
@@ -82,7 +82,7 @@ public class Store {
                 return p;
             }
         }
-        throw new ObjectNotFoundException("Code of product " + code
+        throw new ObjectNotFoundException("Product with code " + code
                 + "not found");
     }
 
