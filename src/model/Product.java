@@ -1,6 +1,6 @@
 package model;
 
-import exceptions.StringVoidAtribException;
+import exceptions.StringVoidException;
 import java.util.Objects;
 
 /**
@@ -21,7 +21,7 @@ public class Product {
         }
         
         if ("".equals(name.trim())) {
-            throw new StringVoidAtribException("la cadena de texto no puede estar vacia");
+            throw new StringVoidException("la cadena de texto no puede estar vacia");
         }
         this.code = code;
         this.name = name;
