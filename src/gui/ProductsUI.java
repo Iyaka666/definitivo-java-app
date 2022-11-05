@@ -61,6 +61,7 @@ public class ProductsUI extends javax.swing.JInternalFrame {
         labTypeProduct = new javax.swing.JLabel();
 
         setBackground(new java.awt.Color(255, 255, 255));
+        setClosable(true);
 
         labCode.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
         labCode.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);

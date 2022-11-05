@@ -75,6 +75,8 @@ public class PurchasesUI extends javax.swing.JInternalFrame {
         ftxIva = new javax.swing.JFormattedTextField();
         ftxTotal = new javax.swing.JFormattedTextField();
 
+        setClosable(true);
+
         labReasonSocial.setText("Razon Social");
 
         labNIT.setText("NIT");

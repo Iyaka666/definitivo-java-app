@@ -55,6 +55,8 @@ public class CustomerUI extends javax.swing.JInternalFrame {
         ftxPhone = new javax.swing.JFormattedTextField();
         ftxEmail = new javax.swing.JFormattedTextField();
 
+        setClosable(true);
+
         labManagementPurchase.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
         labManagementPurchase.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         labManagementPurchase.setText("Gestionar Clientes");

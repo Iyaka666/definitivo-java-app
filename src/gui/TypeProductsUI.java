@@ -46,7 +46,7 @@ public class TypeProductsUI extends javax.swing.JInternalFrame {
         jTTypeProduct = new javax.swing.JTable();
         labManagementTypeProducts = new javax.swing.JLabel();
 
-        setDefaultCloseOperation(javax.swing.WindowConstants.HIDE_ON_CLOSE);
+        setClosable(true);
 
         labName.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
         labName.setText("Nombre:");
