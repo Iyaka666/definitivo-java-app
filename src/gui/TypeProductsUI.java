@@ -2,7 +2,7 @@ package gui;
 
 import model.Store;
 import model.TypeProduct;
-import exceptions.OutRangeGivenDoubleException;
+import exceptions.ItIsNotDoubleException;
 import exceptions.StringVoidException;
 import exceptions.ThisIsRegisteredException;
 import java.awt.event.ActionEvent;
@@ -176,7 +176,7 @@ public class TypeProductsUI extends javax.swing.JInternalFrame {
                     txfName.requestFocus();
                     txfName.selectAll();
                 }
-            } catch (StringVoidException | OutRangeGivenDoubleException | ThisIsRegisteredException ex) {
+            } catch (StringVoidException | ItIsNotDoubleException | ThisIsRegisteredException ex) {
                 JOptionPane.showMessageDialog(TypeProductsUI.this, ex.getMessage());
             } catch (Exception ex) {
                 Logger.getLogger(TypeProductsUI.class.getName()).log(Level.SEVERE, null, ex);
