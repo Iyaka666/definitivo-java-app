@@ -11,7 +11,7 @@ package exceptions;
 public class ThisIsRegisteredException extends Exception {
 
     public ThisIsRegisteredException(String string) {
-        super();
+        super(string);
     }
     
 }

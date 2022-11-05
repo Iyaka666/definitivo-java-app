@@ -11,7 +11,7 @@ package model;
 public class NegativeInvalidException extends Exception {
 
     public NegativeInvalidException(String string) {
-        super();
+        super(string);
     }
     
 }

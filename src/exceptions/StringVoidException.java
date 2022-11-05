@@ -11,7 +11,7 @@ package exceptions;
 public class StringVoidException extends Exception {
 
     public StringVoidException(String string) {
-        super();
+        super(string);
     }
 
 }

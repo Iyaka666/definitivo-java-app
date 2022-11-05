@@ -11,7 +11,7 @@ package exceptions;
 public class IdInvalidException extends Exception {
 
     public IdInvalidException(String string) {
-        super();
+        super(string);
     }
     
 }

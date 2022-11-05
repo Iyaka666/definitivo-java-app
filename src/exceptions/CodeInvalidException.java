@@ -11,7 +11,7 @@ package model;
 public class CodeInvalidException extends Exception {
 
     public CodeInvalidException(String string) {
-        super();
+        super(string);
     }
     
 }

@@ -11,7 +11,7 @@ package exceptions;
 public class OutRangeGivenDoubleException extends Exception {
 
     public OutRangeGivenDoubleException(String string) {
-        super();
+        super(string);
     }
     
 }
