@@ -4,6 +4,7 @@ import model.Store;
 import model.TypeProduct;
 import exceptions.OutRangeGivenDoubleException;
 import exceptions.StringVoidException;
+import exceptions.ThisIsRegisteredException;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.logging.Level;
@@ -17,8 +18,8 @@ public class TypeProductsUI extends javax.swing.JInternalFrame {
     private Store store;
     private TypeProduct typeProductRegistered;
 
-    public TypeProductsUI(Store a) {
-        this.store = a;
+    public TypeProductsUI(Store store) {
+        this.store = store;
         initComponents();
         btnSave.addActionListener(new HandlerSaveTypeProduct());
         btnCancel.addActionListener(new HandlerDeleteField());
@@ -45,7 +46,7 @@ public class TypeProductsUI extends javax.swing.JInternalFrame {
         jTTypeProduct = new javax.swing.JTable();
         labManagementTypeProducts = new javax.swing.JLabel();
 
-        setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
+        setDefaultCloseOperation(javax.swing.WindowConstants.HIDE_ON_CLOSE);
 
         labName.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
         labName.setText("Nombre:");
@@ -54,6 +55,8 @@ public class TypeProductsUI extends javax.swing.JInternalFrame {
         labIva.setText("IVA:");
 
         btnSave.setText("Guardar");
+
+        ftxIVA.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.NumberFormatter(new java.text.DecimalFormat("#0.00%"))));
 
         btnCancel.setText("Cancelar");
 
@@ -162,16 +165,18 @@ public class TypeProductsUI extends javax.swing.JInternalFrame {
             try {
                 if (typeProductRegistered == null) {
                     typeProductRegistered = new TypeProduct(txfName.getText(), (Double) ftxIVA.getValue());
+                    store.addNewTypeProduct(typeProductRegistered);
                     jTTypeProduct.updateUI();
-                } else {
+                } else{
                     typeProductRegistered.setName(txfName.getText());
                     typeProductRegistered.setPercentageIva((Double) ftxIVA.getValue());
-                    JOptionPane.showMessageDialog(TypeProductsUI.this, "The information have been modified");
                     jTTypeProduct.updateUI();
+                    JOptionPane.showMessageDialog(TypeProductsUI.this, "The information have been modified");
                     makeDeleteFieldsNoTable();
                     txfName.requestFocus();
+                    txfName.selectAll();
                 }
-            } catch (StringVoidException | OutRangeGivenDoubleException ex) {
+            } catch (StringVoidException | OutRangeGivenDoubleException | ThisIsRegisteredException ex) {
                 JOptionPane.showMessageDialog(TypeProductsUI.this, ex.getMessage());
             } catch (Exception ex) {
                 Logger.getLogger(TypeProductsUI.class.getName()).log(Level.SEVERE, null, ex);
@@ -201,7 +206,7 @@ public class TypeProductsUI extends javax.swing.JInternalFrame {
                 case 0:
                     return tP.getName();
                 case 1:
-                    return tP.getPercentageIva();
+                    return tP.viewPercentage();
             }
             return "";
         }
