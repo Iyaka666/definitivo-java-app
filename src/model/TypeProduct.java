@@ -18,17 +18,8 @@ public class TypeProduct {
     private Double percentageIva;
 
     public TypeProduct(String name, Double percentageIva) throws Exception {
-        
-        if("".equals(name.trim()) ){
-            throw new StringVoidException("Name is empty");
-        }
-        
-        if(!((percentageIva >= 0.0)&&(percentageIva <= 1.0))){
-            throw new OutRangeGivenDoubleException("Value is incorrect to percentage");
-        }
-        
-        this.name = name;
-        this.percentageIva = percentageIva;
+        setName(name);
+        setPercentageIva(percentageIva);
     }
 
     public String getName() {
@@ -39,17 +30,29 @@ public class TypeProduct {
         return percentageIva;
     }
 
-    public void setName(String name) {
-        if (this.name.equals(name)) {
-            return;
+    public void setName(String name) throws Exception{
+        if("".equals(name)){
+            throw new StringVoidException("Name is empty");
         }
-        this.name = name;
+        if(!(name.equals(this.name))){
+            this.name = name;
+        }
     }
 
-    public void setPercentageIva(Double percentageIva) {
+    public void setPercentageIva(Double percentageIva) throws Exception{
+        if(!( percentageIva instanceof Double )){
+            throw new OutRangeGivenDoubleException("Value is incorrect to percentage");
+        }
+        if(!(percentageIva >= 0)){
+            throw new NegativeInvalidException("Percentege should be a negative value");
+        }
         this.percentageIva = percentageIva;
     }
-
+    
+    public String viewPercentage(){
+        return String.valueOf( (short)(this.percentageIva * 100) ) +"%";
+    }
+    
     @Override
     public String toString() {
         return name;
