@@ -1,7 +1,8 @@
 package model;
 
-import exceptions.OutRangeGivenDoubleException;
+import exceptions.ItIsNotDoubleException;
 import exceptions.StringVoidException;
+import exceptions.PercentageOutRangeException;
 
 /*
  * To change this license header, choose License Headers in Project Properties.
@@ -41,7 +42,10 @@ public class TypeProduct {
 
     public void setPercentageIva(Double percentageIva) throws Exception{
         if(!( percentageIva instanceof Double )){
-            throw new OutRangeGivenDoubleException("Value is incorrect to percentage");
+            throw new ItIsNotDoubleException("Value is incorrect to percentage");
+        }
+        if(!(percentageIva >= 0.0 && percentageIva <= 1.0)){
+            throw new PercentageOutRangeException("Value should be 0% into 100&%");
         }
         if(!(percentageIva >= 0)){
             throw new NegativeInvalidException("Percentege should be a negative value");
