@@ -23,8 +23,8 @@ public class TypeProductsUI extends javax.swing.JInternalFrame {
         initComponents();
         btnSave.addActionListener(new HandlerSaveTypeProduct());
         btnCancel.addActionListener(new HandlerDeleteField());
-        jTTypeProduct.setModel(new ModelTypeProduct());
-        jTTypeProduct.updateUI();
+        tbTypeProduct.setModel(new ModelTypeProduct());
+        tbTypeProduct.updateUI();
     }
 
     /**
@@ -42,8 +42,8 @@ public class TypeProductsUI extends javax.swing.JInternalFrame {
         txfName = new javax.swing.JTextField();
         ftxIVA = new javax.swing.JFormattedTextField();
         btnCancel = new javax.swing.JButton();
-        jScrollPane1 = new javax.swing.JScrollPane();
-        jTTypeProduct = new javax.swing.JTable();
+        scrollPane = new javax.swing.JScrollPane();
+        tbTypeProduct = new javax.swing.JTable();
         labManagementTypeProducts = new javax.swing.JLabel();
 
         setClosable(true);
@@ -60,7 +60,7 @@ public class TypeProductsUI extends javax.swing.JInternalFrame {
 
         btnCancel.setText("Cancelar");
 
-        jTTypeProduct.setModel(new javax.swing.table.DefaultTableModel(
+        tbTypeProduct.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
                 {null, null, null, null},
                 {null, null, null, null},
@@ -71,7 +71,7 @@ public class TypeProductsUI extends javax.swing.JInternalFrame {
                 "Title 1", "Title 2", "Title 3", "Title 4"
             }
         ));
-        jScrollPane1.setViewportView(jTTypeProduct);
+        scrollPane.setViewportView(tbTypeProduct);
 
         labManagementTypeProducts.setText("Gestionar Tipos de Productos");
 
@@ -96,7 +96,7 @@ public class TypeProductsUI extends javax.swing.JInternalFrame {
                                     .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                                         .addComponent(txfName, javax.swing.GroupLayout.DEFAULT_SIZE, 270, Short.MAX_VALUE)
                                         .addComponent(ftxIVA)))
-                                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                                .addComponent(scrollPane, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
                         .addGroup(javax.swing.GroupLayout.Alignment.LEADING, layout.createSequentialGroup()
                             .addGap(179, 179, 179)
                             .addComponent(btnSave)
@@ -125,7 +125,7 @@ public class TypeProductsUI extends javax.swing.JInternalFrame {
                     .addComponent(btnSave)
                     .addComponent(btnCancel))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 154, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(scrollPane, javax.swing.GroupLayout.PREFERRED_SIZE, 154, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(2, 2, 2))
         );
 
@@ -137,11 +137,11 @@ public class TypeProductsUI extends javax.swing.JInternalFrame {
     private javax.swing.JButton btnCancel;
     private javax.swing.JButton btnSave;
     private javax.swing.JFormattedTextField ftxIVA;
-    private javax.swing.JScrollPane jScrollPane1;
-    private javax.swing.JTable jTTypeProduct;
     private javax.swing.JLabel labIva;
     private javax.swing.JLabel labManagementTypeProducts;
     private javax.swing.JLabel labName;
+    private javax.swing.JScrollPane scrollPane;
+    private javax.swing.JTable tbTypeProduct;
     private javax.swing.JTextField txfName;
     // End of variables declaration//GEN-END:variables
     private void makeDeleteFieldsNoTable(){
@@ -166,11 +166,11 @@ public class TypeProductsUI extends javax.swing.JInternalFrame {
                 if (typeProductRegistered == null) {
                     typeProductRegistered = new TypeProduct(txfName.getText(), (Double) ftxIVA.getValue());
                     store.addNewTypeProduct(typeProductRegistered);
-                    jTTypeProduct.updateUI();
+                    tbTypeProduct.updateUI();
                 } else{
                     typeProductRegistered.setName(txfName.getText());
                     typeProductRegistered.setPercentageIva((Double) ftxIVA.getValue());
-                    jTTypeProduct.updateUI();
+                    tbTypeProduct.updateUI();
                     JOptionPane.showMessageDialog(TypeProductsUI.this, "The information have been modified");
                     makeDeleteFieldsNoTable();
                     txfName.requestFocus();
