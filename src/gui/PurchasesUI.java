@@ -32,7 +32,6 @@ public class PurchasesUI extends javax.swing.JInternalFrame {
     public PurchasesUI(Store store) {
         this.store = store;
         initComponents();
-        tbTypeProducts.updateUI();
         HandlerFindCustomer hFindCustomer = new HandlerFindCustomer();
         btnSearch.addActionListener(hFindCustomer);
         txfId.addActionListener(hFindCustomer);
@@ -41,6 +40,8 @@ public class PurchasesUI extends javax.swing.JInternalFrame {
         btnReturn.addActionListener(new HandlerReturnProduct());
         btnCancel.addActionListener(new HandlerCancel());
         btnSignInPurchase.addActionListener(new HandlerSignInPurchase());
+        tbTypeProducts.setModel(new ModelTb());
+        tbTypeProducts.updateUI();
     }
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
@@ -365,23 +366,19 @@ public class PurchasesUI extends javax.swing.JInternalFrame {
         public void actionPerformed(ActionEvent e) {
             try {
                 long code = Long.parseLong(txfCode.getText());
-                long id = Long.parseLong(txfId.getText());
-                if (customerFound == null) {
-                    customerFound = store.findCustomerByID(id);
-                }
                 if (productFound == null) {
                     productFound = store.findProductByCode(code);
+                }
+                if (purchase == null) {
+                    purchase = new Purchase(LocalDateTime.now(), store.findEmployeeById(1000123));
                 }
                 DetailPurchase detailPurchase = new DetailPurchase(
                         Byte.parseByte(txfQuantity.getText()),
                         productFound);
-                if (purchase == null) {
-                    purchase = new Purchase(LocalDateTime.now(), store.findEmployeeById(1000123));
-                }
+                purchase.addDetailsPurchaseByObject(detailPurchase);                
                 subtotal += productFound.getCost();
                 valorIva += detailPurchase.getValueIva();
                 total += detailPurchase.getCostPurchase();
-                purchase.addDetailsPurchaseByObject(detailPurchase);
                 ftxSubtotal.setValue(subtotal);
                 ftxIva.setValue(valorIva);
                 ftxTotal.setValue(total);
@@ -416,17 +413,17 @@ public class PurchasesUI extends javax.swing.JInternalFrame {
             }
         }
     }
-    
-    public class HandlerSignInPurchase implements ActionListener{
+
+    public class HandlerSignInPurchase implements ActionListener {
 
         @Override
         public void actionPerformed(ActionEvent e) {
-            if (customerFound != null && productFound != null && !purchase.getDetailsPurchase().isEmpty()){
+            if (customerFound != null && productFound != null && !purchase.getDetailsPurchase().isEmpty()) {
                 store.addNewPurchase(purchase);
                 JOptionPane.showMessageDialog(PurchasesUI.this, "Registro exitoso");
             }
         }
-        
+
     }
 
     public class HandlerCancel implements ActionListener {
@@ -442,19 +439,23 @@ public class PurchasesUI extends javax.swing.JInternalFrame {
             ftxSubtotal.setText("");
             ftxIva.setText("");
             ftxTotal.setText("");
-            if(purchase != null){
+            if (purchase != null) {
                 purchase.deleteAllDetailsPurchase();
             }
         }
     }
-    
+
     public class ModelTb extends AbstractTableModel {
 
         private final String[] headersNames = {"Codigo", "Nombre", "Vr. Unit.", "Cant", "Costo"};
 
         @Override
         public int getRowCount() {
-            return purchase.getDetailsPurchase().size();
+            try {
+                return purchase.getDetailsPurchase().size();
+            } catch (NullPointerException ex) {
+                return 1;
+            }
         }
 
         @Override
@@ -464,20 +465,31 @@ public class PurchasesUI extends javax.swing.JInternalFrame {
 
         @Override
         public Object getValueAt(int rowIndex, int columnIndex) {
-            DetailPurchase dC = purchase.getDetailsPurchase().get(rowIndex);
-            switch (columnIndex) {
-                case 0:
-                    return dC.getProduct().getCode();
-                case 1:
-                    return dC.getProduct().getName();
-                case 2:
-                    return dC.getProduct().getCost();
-                case 3:
-                    return dC.getQuantity();
-                case 4:
-                    return dC.getCostPurchase();
+            String empty = "";
+            try {
+                DetailPurchase dC = purchase.getDetailsPurchase().get(rowIndex);
+                switch (columnIndex) {
+                    case 0:
+                        return dC.getProduct().getCode();
+                    case 1:
+                        return dC.getProduct().getName();
+                    case 2:
+                        return dC.getProduct().getCost();
+                    case 3:
+                        return dC.getQuantity();
+                    case 4:
+                        return dC.getCostPurchase();
+                }
+                return empty;
+            } catch (NullPointerException ex) {
+                //if purchase is empty then once column will be filled with string empty
+                for (int i = 0; i < this.getColumnCount(); i++) {
+                    if (columnIndex == i) {
+                        return empty;
+                    }
+                }
             }
-            return "";
+            return null;
         }
 
         @Override
@@ -486,4 +498,9 @@ public class PurchasesUI extends javax.swing.JInternalFrame {
         }
 
     }
+
+
+
 }
+
+
