@@ -35,7 +35,7 @@ public class Purchase {
         this.customer = c;
     }
 
-    public List<DetailPurchase> getDetailsPurchase() {
+    public List<DetailPurchase> getDetailsPurchase(){
         return detailsPurchase;
     }
 
