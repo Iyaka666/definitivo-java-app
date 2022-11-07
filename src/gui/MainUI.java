@@ -12,11 +12,11 @@ public class MainUI extends javax.swing.JFrame {
     public MainUI( Store thisStore ) {
         this.store = thisStore;
         initComponents();
-        jMICustomer.addActionListener(new HandlerShowCustomersUI());
-        jMIProducts.addActionListener(new HandlerShowProductsUI());
-        jMITypeProducts.addActionListener(new HandlerShowTypeProductsUI());
-        jMIPurchases.addActionListener(new HandlerShowSignInPurchaseUI());
-        jMIExit.addActionListener((ActionEvent e) -> {
+        mniCustomer.addActionListener(new HandlerShowCustomersUI());
+        mniProducts.addActionListener(new HandlerShowProductsUI());
+        mniTypeProducts.addActionListener(new HandlerShowTypeProductsUI());
+        mniPurchases.addActionListener(new HandlerShowSignInPurchaseUI());
+        mniExit.addActionListener((ActionEvent e) -> {
             System.exit(0);
         });
     }
@@ -24,55 +24,59 @@ public class MainUI extends javax.swing.JFrame {
     private void initComponents() {
 
         jDesktopP = new javax.swing.JDesktopPane();
-        jMB1 = new javax.swing.JMenuBar();
-        jMMain = new javax.swing.JMenu();
-        jMIPurchases = new javax.swing.JMenuItem();
-        jMIProducts = new javax.swing.JMenuItem();
-        jMITypeProducts = new javax.swing.JMenuItem();
-        jMICustomer = new javax.swing.JMenuItem();
-        jSeparator1 = new javax.swing.JPopupMenu.Separator();
-        jMIExit = new javax.swing.JMenuItem();
+        menuBar = new javax.swing.JMenuBar();
+        menMain = new javax.swing.JMenu();
+        mniPurchases = new javax.swing.JMenuItem();
+        mniProducts = new javax.swing.JMenuItem();
+        mniTypeProducts = new javax.swing.JMenuItem();
+        mniCustomer = new javax.swing.JMenuItem();
+        separator = new javax.swing.JPopupMenu.Separator();
+        mniExit = new javax.swing.JMenuItem();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setBounds(new java.awt.Rectangle(0, 0, 900, 700));
+        setSize(new java.awt.Dimension(900, 700));
 
         jDesktopP.setBackground(new java.awt.Color(255, 255, 255));
+        jDesktopP.setMinimumSize(new java.awt.Dimension(800, 600));
         getContentPane().add(jDesktopP, java.awt.BorderLayout.CENTER);
 
-        jMMain.setText("Principal");
+        menMain.setText("Principal");
 
-        jMIPurchases.setText("Compras");
-        jMMain.add(jMIPurchases);
+        mniPurchases.setText("Compras");
+        menMain.add(mniPurchases);
 
-        jMIProducts.setText("Productos");
-        jMMain.add(jMIProducts);
+        mniProducts.setText("Productos");
+        menMain.add(mniProducts);
 
-        jMITypeProducts.setText("Tipos de Productos");
-        jMMain.add(jMITypeProducts);
+        mniTypeProducts.setText("Tipos de Productos");
+        menMain.add(mniTypeProducts);
 
-        jMICustomer.setText("Clientes");
-        jMMain.add(jMICustomer);
-        jMMain.add(jSeparator1);
+        mniCustomer.setText("Clientes");
+        menMain.add(mniCustomer);
+        menMain.add(separator);
 
-        jMIExit.setText("Salir");
-        jMMain.add(jMIExit);
+        mniExit.setText("Salir");
+        menMain.add(mniExit);
 
-        jMB1.add(jMMain);
+        menuBar.add(menMain);
 
-        setJMenuBar(jMB1);
+        setJMenuBar(menuBar);
 
         pack();
+        setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JDesktopPane jDesktopP;
-    private javax.swing.JMenuBar jMB1;
-    private javax.swing.JMenuItem jMICustomer;
-    private javax.swing.JMenuItem jMIExit;
-    private javax.swing.JMenuItem jMIProducts;
-    private javax.swing.JMenuItem jMIPurchases;
-    private javax.swing.JMenuItem jMITypeProducts;
-    private javax.swing.JMenu jMMain;
-    private javax.swing.JPopupMenu.Separator jSeparator1;
+    private javax.swing.JMenu menMain;
+    private javax.swing.JMenuBar menuBar;
+    private javax.swing.JMenuItem mniCustomer;
+    private javax.swing.JMenuItem mniExit;
+    private javax.swing.JMenuItem mniProducts;
+    private javax.swing.JMenuItem mniPurchases;
+    private javax.swing.JMenuItem mniTypeProducts;
+    private javax.swing.JPopupMenu.Separator separator;
     // End of variables declaration//GEN-END:variables
         
     public class HandlerShowCustomersUI implements ActionListener{
