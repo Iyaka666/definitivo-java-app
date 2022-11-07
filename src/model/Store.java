@@ -10,7 +10,6 @@ import java.util.List;
  * @author Marlon
  */
 public class Store {
-
     private List<Customer> customers = new LinkedList<>();
     private List<Employee> employees = new LinkedList<>();
     private List<Purchase> purchases = new LinkedList<>();
