@@ -6,6 +6,7 @@ import model.Purchase;
 import model.DetailPurchase;
 import model.Product;
 import exceptions.ObjectNotFoundException;
+import exceptions.ThisIsRegisteredException;
 import java.awt.HeadlessException;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -28,6 +29,7 @@ public class PurchasesUI extends javax.swing.JInternalFrame {
     private Double subtotal = 0.0;
     private Double valorIva = 0.0;
     private Double total = 0.0;
+    private byte count = 0;
 
     public PurchasesUI(Store store) {
         this.store = store;
@@ -40,8 +42,6 @@ public class PurchasesUI extends javax.swing.JInternalFrame {
         btnReturn.addActionListener(new HandlerReturnProduct());
         btnCancel.addActionListener(new HandlerCancel());
         btnSignInPurchase.addActionListener(new HandlerSignInPurchase());
-        tbTypeProducts.setModel(new ModelTb());
-        tbTypeProducts.updateUI();
     }
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
@@ -65,7 +65,7 @@ public class PurchasesUI extends javax.swing.JInternalFrame {
         txfQuantity = new javax.swing.JTextField();
         btnAddDetailPurchase = new javax.swing.JButton();
         spnContainTable = new javax.swing.JScrollPane();
-        tbTypeProducts = new javax.swing.JTable();
+        tbDetailsPurchase = new javax.swing.JTable();
         btnReturn = new javax.swing.JButton();
         labSubtotal = new javax.swing.JLabel();
         labIva = new javax.swing.JLabel();
@@ -88,6 +88,7 @@ public class PurchasesUI extends javax.swing.JInternalFrame {
 
         labNameCustomer.setText("Nombre");
 
+        txfNameCustomer.setDisabledTextColor(new java.awt.Color(0, 0, 0));
         txfNameCustomer.setEnabled(false);
 
         btnSearch.setText("...");
@@ -134,8 +135,10 @@ public class PurchasesUI extends javax.swing.JInternalFrame {
 
         labQuantity.setText("Cantidad");
 
+        txfNameProduct.setDisabledTextColor(new java.awt.Color(0, 0, 0));
         txfNameProduct.setEnabled(false);
 
+        ftxCost.setDisabledTextColor(new java.awt.Color(0, 0, 0));
         ftxCost.setEnabled(false);
 
         javax.swing.GroupLayout pnlProductLayout = new javax.swing.GroupLayout(pnlProduct);
@@ -181,21 +184,20 @@ public class PurchasesUI extends javax.swing.JInternalFrame {
 
         btnAddDetailPurchase.setText("Agregar");
 
-        tbTypeProducts.setModel(new javax.swing.table.DefaultTableModel(
+        tbDetailsPurchase.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null}
+                {null, null, null, null, null},
+                {null, null, null, null, null},
+                {null, null, null, null, null},
+                {null, null, null, null, null}
             },
             new String [] {
-                "Title 1", "Title 2", "Title 3", "Title 4"
+                "Codigo", "Nombre", "Vr. Unit.", "Cant.", "Costo"
             }
         ));
-        tbTypeProducts.setCellSelectionEnabled(true);
-        tbTypeProducts.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
-        tbTypeProducts.setSelectionMode(javax.swing.ListSelectionModel.SINGLE_SELECTION);
-        spnContainTable.setViewportView(tbTypeProducts);
+        tbDetailsPurchase.setCellSelectionEnabled(true);
+        tbDetailsPurchase.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
+        tbDetailsPurchase.setSelectionMode(javax.swing.ListSelectionModel.SINGLE_SELECTION);
 
         btnReturn.setText("Devolver");
 
@@ -225,12 +227,6 @@ public class PurchasesUI extends javax.swing.JInternalFrame {
             .addGroup(layout.createSequentialGroup()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
-                        .addGap(290, 290, 290)
-                        .addComponent(labReasonSocial))
-                    .addGroup(layout.createSequentialGroup()
-                        .addGap(316, 316, 316)
-                        .addComponent(labNIT))
-                    .addGroup(layout.createSequentialGroup()
                         .addGap(20, 20, 20)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                             .addComponent(btnAddDetailPurchase, javax.swing.GroupLayout.Alignment.TRAILING)
@@ -252,7 +248,13 @@ public class PurchasesUI extends javax.swing.JInternalFrame {
                             .addGroup(layout.createSequentialGroup()
                                 .addComponent(btnSignInPurchase, javax.swing.GroupLayout.PREFERRED_SIZE, 451, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 18, Short.MAX_VALUE)
-                                .addComponent(btnCancel, javax.swing.GroupLayout.PREFERRED_SIZE, 150, javax.swing.GroupLayout.PREFERRED_SIZE)))))
+                                .addComponent(btnCancel, javax.swing.GroupLayout.PREFERRED_SIZE, 150, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(290, 290, 290)
+                        .addComponent(labReasonSocial))
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(316, 316, 316)
+                        .addComponent(labNIT)))
                 .addContainerGap(19, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
@@ -318,14 +320,24 @@ public class PurchasesUI extends javax.swing.JInternalFrame {
     private javax.swing.JPanel pnlCustomer;
     private javax.swing.JPanel pnlProduct;
     private javax.swing.JScrollPane spnContainTable;
-    private javax.swing.JTable tbTypeProducts;
+    private javax.swing.JTable tbDetailsPurchase;
     private javax.swing.JTextField txfCode;
     private javax.swing.JTextField txfId;
     private javax.swing.JTextField txfNameCustomer;
     private javax.swing.JTextField txfNameProduct;
     private javax.swing.JTextField txfQuantity;
     // End of variables declaration//GEN-END:variables
-
+    
+    private void setOnceModelTable(){
+        if(count == Byte.MAX_VALUE){
+            count = 1;
+        }
+        if (count == 0){
+            tbDetailsPurchase.setModel(new ModelTb());
+        }
+        count += 1;
+    }
+    
     public class HandlerFindCustomer implements ActionListener {
 
         @Override
@@ -335,7 +347,8 @@ public class PurchasesUI extends javax.swing.JInternalFrame {
                 customerFound = store.findCustomerByID(id);
                 txfNameCustomer.setText(customerFound.getNames());
             } catch (ObjectNotFoundException | NumberFormatException ex) {
-                JOptionPane.showMessageDialog(PurchasesUI.this, ex.getMessage());
+                JOptionPane.showMessageDialog(PurchasesUI.this, ex.getMessage()
+                        + "\nIf you want to add it, you should go to main -> customers");
             }
         }
     }
@@ -353,7 +366,8 @@ public class PurchasesUI extends javax.swing.JInternalFrame {
                 txfQuantity.requestFocus();
                 txfQuantity.selectAll();
             } catch (NumberFormatException | ObjectNotFoundException ex1) {
-                JOptionPane.showMessageDialog(PurchasesUI.this, ex1.getMessage());
+                JOptionPane.showMessageDialog(PurchasesUI.this, ex1.getMessage()
+                        + "\nIf you want to add it, you should go to main -> products");
             } catch (Exception ex) {
                 Logger.getLogger(PurchasesUI.class.getName()).log(Level.SEVERE, null, ex);
             }
@@ -366,24 +380,26 @@ public class PurchasesUI extends javax.swing.JInternalFrame {
         public void actionPerformed(ActionEvent e) {
             try {
                 long code = Long.parseLong(txfCode.getText());
+                long id = Long.parseLong(txfId.getText());
                 if (productFound == null) {
                     productFound = store.findProductByCode(code);
                 }
                 if (purchase == null) {
-                    purchase = new Purchase(LocalDateTime.now(), store.findEmployeeById(1000123));
+                    purchase = new Purchase(store.findEmployeeById(1000123));
                 }
                 DetailPurchase detailPurchase = new DetailPurchase(
-                        Byte.parseByte(txfQuantity.getText()),
+                        Short.parseShort(txfQuantity.getText()),
                         productFound);
-                purchase.addDetailsPurchaseByObject(detailPurchase);                
-                subtotal += productFound.getCost();
+                purchase.addDetailsPurchaseByObject(detailPurchase);
+                setOnceModelTable();
+                tbDetailsPurchase.updateUI();
+                subtotal += productFound.getCost() * detailPurchase.getQuantity();
                 valorIva += detailPurchase.getValueIva();
                 total += detailPurchase.getCostPurchase();
                 ftxSubtotal.setValue(subtotal);
                 ftxIva.setValue(valorIva);
                 ftxTotal.setValue(total);
-                tbTypeProducts.updateUI();
-            } catch (NumberFormatException ex) {
+            } catch (ThisIsRegisteredException | NumberFormatException ex) {
                 JOptionPane.showMessageDialog(PurchasesUI.this, ex.getMessage());
             } catch (Exception ex) {
                 Logger.getLogger(PurchasesUI.class.getName()).log(Level.SEVERE, null, ex);
@@ -397,9 +413,9 @@ public class PurchasesUI extends javax.swing.JInternalFrame {
         @Override
         public void actionPerformed(ActionEvent e) {
             try {
-                int detailPurchaseSelectRow = tbTypeProducts.getSelectedRow();
+                int detailPurchaseSelectRow = tbDetailsPurchase.getSelectedRow();
                 int option = JOptionPane.showConfirmDialog(PurchasesUI.this,
-                        "¿Esta seguro de eliminar ese producto?", "Registrar Compras",
+                        "you are sure to remove this product?", "Sign in Purchases",
                         JOptionPane.YES_NO_OPTION);
                 if (option == JOptionPane.YES_OPTION) {
                     DetailPurchase detailPurchase = purchase.getElementDetailsPurchaseAt(detailPurchaseSelectRow);
@@ -419,8 +435,9 @@ public class PurchasesUI extends javax.swing.JInternalFrame {
         @Override
         public void actionPerformed(ActionEvent e) {
             if (customerFound != null && productFound != null && !purchase.getDetailsPurchase().isEmpty()) {
+                purchase.setDateTimePurchase(LocalDateTime.now());
                 store.addNewPurchase(purchase);
-                JOptionPane.showMessageDialog(PurchasesUI.this, "Registro exitoso");
+                JOptionPane.showMessageDialog(PurchasesUI.this, "Signed up successful");
             }
         }
 
@@ -447,15 +464,12 @@ public class PurchasesUI extends javax.swing.JInternalFrame {
 
     public class ModelTb extends AbstractTableModel {
 
-        private final String[] headersNames = {"Codigo", "Nombre", "Vr. Unit.", "Cant", "Costo"};
+        private final String[] headersNames = {"Codigo", "Nombre", "Vr. Unit.",
+            "Cant", "Costo"};
 
         @Override
         public int getRowCount() {
-            try {
-                return purchase.getDetailsPurchase().size();
-            } catch (NullPointerException ex) {
-                return 1;
-            }
+            return purchase.getDetailsPurchase().size();
         }
 
         @Override
@@ -465,31 +479,20 @@ public class PurchasesUI extends javax.swing.JInternalFrame {
 
         @Override
         public Object getValueAt(int rowIndex, int columnIndex) {
-            String empty = "";
-            try {
-                DetailPurchase dC = purchase.getDetailsPurchase().get(rowIndex);
-                switch (columnIndex) {
-                    case 0:
-                        return dC.getProduct().getCode();
-                    case 1:
-                        return dC.getProduct().getName();
-                    case 2:
-                        return dC.getProduct().getCost();
-                    case 3:
-                        return dC.getQuantity();
-                    case 4:
-                        return dC.getCostPurchase();
-                }
-                return empty;
-            } catch (NullPointerException ex) {
-                //if purchase is empty then once column will be filled with string empty
-                for (int i = 0; i < this.getColumnCount(); i++) {
-                    if (columnIndex == i) {
-                        return empty;
-                    }
-                }
+            DetailPurchase dC = purchase.getDetailsPurchase().get(rowIndex);
+            switch (columnIndex) {
+                case 0:
+                    return dC.getProduct().getCode();
+                case 1:
+                    return dC.getProduct().getName();
+                case 2:
+                    return dC.getProduct().getCost();
+                case 3:
+                    return dC.getQuantity();
+                case 4:
+                    return dC.getCostPurchase();
             }
-            return null;
+            return "";
         }
 
         @Override
@@ -499,8 +502,4 @@ public class PurchasesUI extends javax.swing.JInternalFrame {
 
     }
 
-
-
 }
-
-
