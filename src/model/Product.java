@@ -1,5 +1,6 @@
 package model;
 
+import exceptions.CodeInvalidException;
 import exceptions.StringVoidException;
 import java.util.Objects;
 

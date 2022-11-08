@@ -16,7 +16,7 @@ import java.util.logging.Logger;
 import javax.swing.ComboBoxModel;
 import javax.swing.JOptionPane;
 import javax.swing.event.ListDataListener;
-import model.CodeInvalidException;
+import exceptions.CodeInvalidException;
 
 /**
  *

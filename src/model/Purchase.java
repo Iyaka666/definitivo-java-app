@@ -1,6 +1,8 @@
 package model;
 
+import exceptions.ThisIsRegisteredException;
 import java.time.LocalDateTime;
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -9,18 +11,21 @@ import java.util.List;
  */
 public class Purchase {
 
-    private LocalDateTime dataTimePurchase;
-    private List<DetailPurchase> detailsPurchase;
+    private LocalDateTime dateTimePurchase;
+    private List<DetailPurchase> detailsPurchase = new ArrayList<>(1);
     private Employee employee;
     private Customer customer;
     
-    public Purchase(LocalDateTime dataTimePurchase, Employee employee) {
-        this.dataTimePurchase = dataTimePurchase;
+    public Purchase(Employee employee) throws Exception {
         this.employee = employee;
     }
-
+    
     public LocalDateTime getDataTimePurchase() {
-        return dataTimePurchase;
+        return dateTimePurchase;
+    }
+    
+    public void setDateTimePurchase(LocalDateTime lDT){
+        this.dateTimePurchase = lDT;
     }
 
     public Employee getEmployee() {
@@ -31,15 +36,14 @@ public class Purchase {
         return customer;
     }
     
-    public void setCustomer(Customer c){
-        this.customer = c;
-    }
-
     public List<DetailPurchase> getDetailsPurchase(){
         return detailsPurchase;
     }
 
-    public void addDetailsPurchaseByObject(DetailPurchase dP) {
+    public void addDetailsPurchaseByObject(DetailPurchase dP) throws Exception{
+        if(detailsPurchase.contains(dP)){
+            throw new ThisIsRegisteredException("This detail of purchase already exist");
+        }
         detailsPurchase.add(dP);
     }
 

@@ -1,5 +1,7 @@
 package model;
 
+import java.util.Objects;
+
 /**
  *
  * @author Marlon
@@ -37,4 +39,29 @@ public class DetailPurchase {
         return product;
     }
 
+    @Override
+    public boolean equals(Object obj) {
+        if (this == obj) {
+            return true;
+        }
+        if (obj == null) {
+            return false;
+        }
+        if (getClass() != obj.getClass()) {
+            return false;
+        }
+        final DetailPurchase other = (DetailPurchase) obj;
+        if (this.quantity != other.quantity) {
+            return false;
+        }
+        if (!Objects.equals(this.costPurchase, other.costPurchase)) {
+            return false;
+        }
+        if (!Objects.equals(this.valueIva, other.valueIva)) {
+            return false;
+        }
+        return Objects.equals(this.product, other.product);
+    }
+    
+    
 }

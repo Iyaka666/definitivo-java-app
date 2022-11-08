@@ -1,5 +1,7 @@
 package model;
 
+import java.util.Objects;
+
 /**
  *
  * @author Marlon
@@ -37,5 +39,5 @@ public class Customer extends Person {
     public int getPoints() {
         return points;
     }
-
+    
 }
